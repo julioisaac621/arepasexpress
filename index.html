@@ -1,0 +1,3058 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arepas Express — El verdadero sabor de la tradición</title>
+
+  <!-- Google Fonts: Tipografías que igualan el trazo brush energético, manuscrita inclinada y sans-serif geométrica -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kaushan+Script&family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #090503;
+      --yellow-primary: #f5b800;
+      --yellow-bright: #ffcb1f;
+      --yellow-light: #fff3b0;
+      --yellow-glow: rgba(245, 184, 0, 0.38);
+      --text-white: #ffffff;
+      --text-light: #f4f0ea;
+      --text-dark: #110b04;
+      --font-brush: 'Permanent Marker', 'Kaushan Script', cursive, sans-serif;
+      --font-script: 'Caveat', cursive, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: var(--font-sans);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-color: var(--bg-dark);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ==========================================================================
+       CONTENEDOR PRINCIPAL DEL HERO
+       ========================================================================== */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      isolation: isolate;
+      /* Alternativa visual gastronómica rica (si el navegador móvil ahorra datos o mientras carga Vimeo) */
+      background:
+        radial-gradient(ellipse 140px 55px at 26% 7%, rgba(255, 200, 95, 0.42) 0%, rgba(245, 158, 11, 0.12) 45%, transparent 75%),
+        radial-gradient(circle at 82% 24%, rgba(255, 195, 70, 0.22) 0%, transparent 28%),
+        radial-gradient(circle at 48% 58%, rgba(95, 45, 14, 0.45) 0%, transparent 60%),
+        linear-gradient(180deg, #0c0704 0%, #170d06 58%, #261409 82%, #120904 100%);
+    }
+
+    /* ==========================================================================
+       1. VIDEO DE FONDO REAL DE VIMEO (100% CUBIERTO EN PC Y CELULAR CON CSS PURO)
+       ========================================================================== */
+    .hero__video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* Técnica CSS pura de cobertura 16:9 (object-fit: cover equivalente para iframes) */
+    .hero__vimeo-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 56.25vw; /* 16:9 respecto al ancho */
+      min-height: 100vh;
+      min-height: 100svh;
+      min-width: 177.78vh; /* 16:9 respecto al alto para pantallas verticales de celular */
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero__vimeo-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      pointer-events: none;
+    }
+
+    /* Capa de contraste oscura encima del video para lectura impecable del texto */
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(7, 4, 2, 0.82) 0%, rgba(10, 6, 3, 0.48) 46%, rgba(10, 6, 3, 0.22) 100%),
+        linear-gradient(180deg, rgba(7, 4, 2, 0.65) 0%, rgba(10, 6, 3, 0.15) 45%, rgba(16, 9, 4, 0.58) 80%, rgba(8, 4, 2, 0.9) 100%);
+    }
+
+    /* Superficie de mesa de madera rústica en la base inferior (como en ambas referencias) */
+    .hero__wood-table {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 24%;
+      z-index: 3;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          92deg,
+          rgba(48, 24, 10, 0.18) 0px,
+          rgba(28, 13, 5, 0.28) 18px,
+          rgba(62, 32, 14, 0.15) 36px
+        ),
+        linear-gradient(180deg, transparent 0%, rgba(36, 18, 8, 0.72) 38%, #1a0c05 100%);
+    }
+
+    /* Hojas verdes desenfocadas flotando en el ambiente (idénticas a las referencias) */
+    .ambient-leaf {
+      position: absolute;
+      pointer-events: none;
+      z-index: 4;
+      filter: blur(1.8px) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.65));
+      opacity: 0.9;
+    }
+    .ambient-leaf--tl {
+      top: 22%;
+      left: -18px;
+      width: clamp(58px, 7vw, 95px);
+      transform: rotate(18deg);
+    }
+    .ambient-leaf--center {
+      top: 15%;
+      left: 48%;
+      width: clamp(46px, 5.5vw, 76px);
+      transform: rotate(25deg);
+      filter: blur(0.6px) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6));
+    }
+    .ambient-leaf--bl {
+      bottom: 18%;
+      left: -10px;
+      width: clamp(62px, 6.5vw, 90px);
+      transform: rotate(-16deg);
+    }
+    .ambient-leaf--mr {
+      bottom: 44%;
+      right: 10px;
+      width: clamp(48px, 5vw, 68px);
+      transform: rotate(20deg);
+    }
+    .ambient-leaf--br {
+      bottom: 6%;
+      right: 12%;
+      width: clamp(64px, 7vw, 96px);
+      transform: rotate(-12deg) scaleX(-1);
+    }
+
+    /* ==========================================================================
+       2. HEADER SUPERIOR (LOGO ÚNICO A LA IZQUIERDA + NAV + BOTÓN PEDIDO)
+       ========================================================================== */
+    .hero__header {
+      position: relative;
+      z-index: 20;
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: clamp(0.75rem, 2vw, 1.35rem) clamp(1rem, 4vw, 3.25rem) 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    /* Logo Oficial Único en la esquina superior izquierda */
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      transform-origin: left top;
+      transition: transform 0.3s ease;
+    }
+    .brand-logo:hover {
+      transform: scale(1.03);
+    }
+    .brand-logo__svg {
+      width: clamp(96px, 23vw, 148px);
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85));
+    }
+
+    /* Navegación central de Escritorio (idéntica a la imagen de referencia de PC) */
+    .hero__nav {
+      display: none;
+      align-items: center;
+      gap: clamp(1.25rem, 2.4vw, 2.5rem);
+    }
+
+    .hero__nav-link {
+      color: var(--text-white);
+      text-decoration: none;
+      font-size: 0.96rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      transition: all 0.25s ease;
+    }
+    /* Enlace activo "Inicio" con píldora amarilla igual a la referencia de PC */
+    .hero__nav-link.is-active {
+      background-color: var(--yellow-primary);
+      color: var(--text-dark);
+      padding: 0.45rem 1.35rem;
+      box-shadow: 0 4px 14px var(--yellow-glow);
+    }
+    .hero__nav-link:not(.is-active):hover {
+      color: var(--yellow-primary);
+    }
+
+    /* Acciones derechas: Botón "Haz tu pedido" + Hamburguesa en móvil */
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    /* En móvil: Botón amarillo relleno como en la referencia móvil */
+    .btn-order {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--yellow-primary);
+      color: var(--text-dark);
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: clamp(0.82rem, 2.2vw, 0.96rem);
+      padding: 0.6rem 1.15rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--yellow-primary);
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 6px 18px var(--yellow-glow);
+      transition: all 0.3s var(--ease-out-expo);
+      white-space: nowrap;
+    }
+    .btn-order:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(245, 184, 0, 0.5);
+    }
+    .btn-order__icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Botón Menú Hamburguesa (3 líneas blancas en móvil) */
+    .menu-toggle {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 42px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      gap: 6px;
+      z-index: 30;
+    }
+    .menu-toggle__bar {
+      width: 28px;
+      height: 3px;
+      background-color: var(--text-white);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+    }
+    .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+      background-color: var(--yellow-primary);
+    }
+    .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+      background-color: var(--yellow-primary);
+    }
+
+    /* Menú lateral móvil */
+    .mobile-drawer__backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(3px);
+      z-index: 24;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-drawer__backdrop.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(80vw, 320px);
+      height: 100vh;
+      background: rgba(14, 9, 5, 0.97);
+      border-left: 1px solid rgba(245, 184, 0, 0.25);
+      z-index: 25;
+      padding: 5rem 1.75rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transform: translateX(100%);
+      transition: transform 0.35s var(--ease-out-expo);
+    }
+    .mobile-drawer.is-open {
+      transform: translateX(0);
+    }
+    .mobile-drawer__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .mobile-drawer__link {
+      color: var(--text-white);
+      text-decoration: none;
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .mobile-drawer__link:hover {
+      color: var(--yellow-primary);
+    }
+
+    /* ==========================================================================
+       3. COMPOSICIÓN PRINCIPAL DEL HERO (TEXTOS + TIPOGRAFÍA + AREPAS PNG)
+       ========================================================================== */
+    .hero__main {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 4vw, 3.25rem);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Columna de textos izquierda */
+    .hero__content {
+      position: relative;
+      z-index: 14;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* Subtítulo superior: "El verdadero sabor de la tradición" */
+    .hero__tagline-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transform: rotate(-6deg);
+      margin-left: clamp(0.6rem, 2.5vw, 1.5rem);
+      margin-bottom: 0.15rem;
+      transform-origin: left center;
+      animation: entryFadeUp 0.7s 0.05s var(--ease-out-expo) both;
+    }
+
+    .hero__tagline-sparks {
+      width: clamp(22px, 4vw, 28px);
+      height: auto;
+      color: var(--yellow-primary);
+      flex-shrink: 0;
+    }
+
+    .hero__tagline {
+      font-family: var(--font-script);
+      color: var(--yellow-bright);
+      font-size: clamp(1.35rem, 4.6vw, 2.15rem);
+      font-weight: 700;
+      line-height: 1.02;
+      text-align: center;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
+    }
+
+    .hero__tagline-line {
+      display: block;
+      width: 82%;
+      height: 3px;
+      margin: 3px auto 0;
+      background: var(--yellow-primary);
+      border-radius: 99px;
+    }
+
+    /* ==========================================================================
+       5 y 6. TÍTULO PRINCIPAL + ANIMACIÓN DE LUZ EXCLUSIVA EN «EXPRESS»
+       ========================================================================== */
+    .hero__title {
+      font-family: var(--font-brush);
+      text-transform: uppercase;
+      line-height: 0.9;
+      letter-spacing: 0.015em;
+      transform: rotate(-7deg);
+      transform-origin: left center;
+      margin: 0.25rem 0 1.2rem 0.15rem;
+      user-select: none;
+      animation: entryTitle 0.8s 0.12s var(--ease-out-expo) both;
+    }
+
+    /* Palabra "AREPAS": blanco puro sólido con sombra profunda (sin brillo) */
+    .hero__title-arepas {
+      display: block;
+      color: #ffffff;
+      font-size: clamp(3.15rem, 13.8vw, 6.3rem);
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85));
+    }
+
+    /* Palabra "EXPRESS": amarillo dorado de la marca + reflejo luminoso suave que recorre las letras */
+    .hero__title-express-wrap {
+      display: block;
+      position: relative;
+      margin-top: -0.04em;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85));
+    }
+
+    .hero__title-express {
+      display: inline-block;
+      font-size: clamp(2.85rem, 12.4vw, 5.65rem);
+      /* Degradado con el color amarillo original + franja de luz brillante que pasa de izquierda a derecha */
+      background-image: linear-gradient(
+        110deg,
+        var(--yellow-primary) 0%,
+        var(--yellow-primary) 38%,
+        #fffdf2 48%,
+        #ffffff 50%,
+        #fffdf2 52%,
+        var(--yellow-primary) 62%,
+        var(--yellow-primary) 100%
+      );
+      background-size: 260% 100%;
+      background-position: 140% 0;
+      color: var(--yellow-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: expressLightSweep 4.8s ease-in-out infinite;
+    }
+
+    @keyframes expressLightSweep {
+      0%, 22% {
+        background-position: 140% 0;
+      }
+      58%, 100% {
+        background-position: -60% 0;
+      }
+    }
+
+    /* Subrayado de pincelada amarilla debajo de EXPRESS */
+    .hero__title-underline {
+      display: block;
+      width: 96%;
+      height: auto;
+      margin-top: 2px;
+      margin-left: 1%;
+      color: var(--yellow-primary);
+    }
+
+    /* Descripción */
+    .hero__description {
+      font-size: clamp(0.9rem, 3.2vw, 1.18rem);
+      line-height: 1.42;
+      color: var(--text-white);
+      font-weight: 600;
+      max-width: 440px;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+      animation: entryFadeUp 0.8s 0.24s var(--ease-out-expo) both;
+    }
+
+    /* Grupo Botón "Ver nuestro menú" + círculo con flecha */
+    .hero__cta-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      position: relative;
+      z-index: 16;
+      animation: entryFadeUp 0.8s 0.34s var(--ease-out-expo) both;
+    }
+
+    .btn-menu {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--yellow-primary);
+      color: var(--text-dark);
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: clamp(0.9rem, 2.8vw, 1.08rem);
+      padding: 0.75rem 1.45rem;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 8px 22px var(--yellow-glow);
+      transition: all 0.3s var(--ease-out-expo);
+    }
+    .btn-menu svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .btn-menu:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: var(--yellow-bright);
+      box-shadow: 0 12px 28px rgba(245, 184, 0, 0.55);
+    }
+
+    .btn-menu-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--yellow-primary);
+      background: rgba(15, 9, 4, 0.7);
+      color: var(--yellow-primary);
+      text-decoration: none;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+    .btn-menu-arrow svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.25s ease;
+    }
+    .hero__cta-group:hover .btn-menu-arrow {
+      background: var(--yellow-primary);
+      color: var(--text-dark);
+    }
+    .hero__cta-group:hover .btn-menu-arrow svg {
+      transform: translateX(2px);
+    }
+
+    /* ==========================================================================
+       ZONA DERECHA / INFERIOR: ESLOGAN CON CORONA + IMAGEN PNG DE LAS AREPAS
+       ========================================================================== */
+    .hero__visual {
+      position: relative;
+      z-index: 12;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: entryArepas 0.95s 0.2s var(--ease-out-expo) both;
+    }
+
+    /* Eslogan "¡Más que una arepa, es felicidad!" con corona */
+
+    .hero__slogan-crown {
+      width: clamp(26px, 5vw, 38px);
+      height: auto;
+      color: var(--yellow-primary);
+      margin-bottom: 1px;
+    }
+
+    .hero__slogan-inner {
+      position: relative;
+      padding: 0.15rem 1.1rem;
+    }
+
+    .hero__slogan-rays {
+      position: absolute;
+      inset: -4px -10px;
+      width: calc(100% + 20px);
+      height: calc(100% + 8px);
+      color: var(--yellow-primary);
+    }
+
+    .hero__slogan-text {
+      font-family: var(--font-script);
+      font-size: clamp(1.2rem, 4.2vw, 2.05rem);
+      font-weight: 700;
+      line-height: 0.96;
+      color: var(--yellow-bright);
+    }
+    .hero__slogan-text span {
+      display: block;
+      color: var(--text-white);
+      margin-top: 2px;
+    }
+
+    .hero__slogan-underline {
+      width: clamp(44px, 7vw, 68px);
+      height: auto;
+      color: var(--yellow-primary);
+      margin-top: 3px;
+    }
+
+    /* ==========================================================================
+       4. ZONA INFERIOR: 3 BENEFICIOS (EN MÓVIL) + FLECHA SCROLL + ONDAS AMARILLAS
+       ========================================================================== */
+    .hero__footer {
+      position: relative;
+      z-index: 16;
+      width: 100%;
+      max-width: 1440px;
+      margin: -0.6rem auto 0;
+      padding: 0 clamp(0.75rem, 4vw, 3.25rem) 0.55rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .hero__features {
+      width: 100%;
+      max-width: 500px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.4rem;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.32rem;
+    }
+
+    .feature-item__icon {
+      width: clamp(44px, 11.5vw, 54px);
+      height: clamp(44px, 11.5vw, 54px);
+      border-radius: 50%;
+      border: 2px solid var(--yellow-primary);
+      background: rgba(14, 8, 4, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--yellow-primary);
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.8);
+    }
+    .feature-item__icon svg {
+      width: 54%;
+      height: 54%;
+    }
+
+    .feature-item__label {
+      font-size: clamp(0.72rem, 2.3vw, 0.86rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text-white);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+    }
+
+    /* Indicador de scroll hacia abajo */
+    .scroll-indicator {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 44px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      background: rgba(12, 7, 3, 0.65);
+      color: var(--text-white);
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
+      transition: all 0.25s ease;
+    }
+    .scroll-indicator:hover {
+      border-color: var(--yellow-primary);
+      color: var(--yellow-primary);
+    }
+    .scroll-indicator svg {
+      width: 15px;
+      height: 15px;
+      animation: bounceArrow 2s infinite;
+    }
+
+    /* Ondas amarillas en las esquinas inferiores */
+    .hero__bottom-waves {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: clamp(58px, 11vw, 110px);
+      z-index: 12;
+      pointer-events: none;
+      display: block;
+    }
+
+    /* Aviso discreto para Haz tu pedido */
+    .order-toast {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 50;
+      background: rgba(16, 10, 5, 0.96);
+      border: 1.5px solid var(--yellow-primary);
+      color: var(--text-white);
+      padding: 0.9rem 1.15rem;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.85);
+      max-width: 300px;
+      font-size: 0.88rem;
+      line-height: 1.38;
+      transform: translateY(140%);
+      opacity: 0;
+      transition: all 0.35s var(--ease-out-expo);
+      pointer-events: none;
+    }
+    .order-toast.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .order-toast__title {
+      color: var(--yellow-primary);
+      font-weight: 800;
+      margin-bottom: 0.2rem;
+    }
+
+    /* ==========================================================================
+       DISEÑO RESPONSIVE CUIDADO: 320, 360, 390, 430, 768, 1024 Y 1440 PX
+       ========================================================================== */
+
+    /* Celulares pequeños (320px - 360px) */
+    @media (max-width: 365px) {
+      .hero__header {
+        padding: 0.65rem 0.75rem 0.2rem;
+      }
+      .brand-logo__svg {
+        width: 88px;
+      }
+      .btn-order {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.76rem;
+      }
+      .hero__title-arepas {
+        font-size: 2.75rem;
+      }
+      .hero__title-express {
+        font-size: 2.48rem;
+      }
+      .hero__description {
+        font-size: 0.84rem;
+        max-width: 260px;
+      }
+    }
+
+    /* Celulares medianos y grandes (hasta 767px): Fiel a la imagen de referencia móvil */
+    @media (max-width: 767px) {
+      .ambient-leaf--center {
+        display: none;
+      }
+      .hero__main {
+        justify-content: flex-start;
+        padding-top: 0.15rem;
+      }
+      .hero__content {
+        width: 100%;
+        padding-right: 24%;
+      }
+      .hero__description {
+        max-width: 305px;
+      }
+      .hero__visual {
+        margin-top: -1rem;
+      }
+    }
+
+    /* Tablets (768px - 1023px) */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .hero__main {
+        padding-top: 0.5rem;
+      }
+      .hero__content {
+        max-width: 70%;
+      }
+    }
+
+    /* Escritorio (1024px+): Fiel a la segunda imagen de referencia horizontal */
+    @media (min-width: 1024px) {
+      .hero__nav {
+        display: flex;
+      }
+      .menu-toggle {
+        display: none;
+      }
+
+      /* En PC el botón "Haz tu pedido" es oscuro con borde amarillo e icono verde, igual a tu captura de PC */
+      .btn-order {
+        background: rgba(15, 10, 5, 0.72);
+        color: var(--text-white);
+        border: 1.5px solid var(--yellow-primary);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+        padding: 0.58rem 1.3rem;
+      }
+      .btn-order .btn-order__icon {
+        color: #25d366;
+      }
+      .btn-order:hover {
+        background: var(--yellow-primary);
+        color: var(--text-dark);
+      }
+      .btn-order:hover .btn-order__icon {
+        color: var(--text-dark);
+      }
+
+      .hero__main {
+        display: grid;
+        grid-template-columns: 44% 56%;
+        align-items: center;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .hero__content {
+        padding-right: 0;
+        align-self: center;
+      }
+
+      .hero__description {
+        max-width: 430px;
+        margin-bottom: 1.35rem;
+      }
+
+      .hero__visual {
+        margin-top: 0;
+        align-self: end;
+      }
+
+      /* En PC la referencia muestra únicamente el botón circular de flecha hacia abajo sobre la mesa */
+      .hero__features {
+        display: none;
+      }
+
+      .hero__footer {
+        margin-top: -2.4rem;
+        padding-bottom: 1rem;
+      }
+
+      .scroll-indicator {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+    }
+
+    /* ==========================================================================
+       7. KEYFRAMES DE ENTRADA Y PREFERS-REDUCED-MOTION
+       ========================================================================== */
+    @keyframes entryTitle {
+      from {
+        opacity: 0;
+        transform: rotate(-7deg) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: rotate(-7deg) translateY(0);
+      }
+    }
+
+    @keyframes entryFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes entryArepas {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes subtleFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    @keyframes bounceArrow {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(4px);
+      }
+      60% {
+        transform: translateY(2px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ==========================================================================
+       AJUSTES: HERO SIN IMAGEN CENTRAL, ANIMACIONES, MENÚ, CARRITO, PROYECTO
+       ========================================================================== */
+    .hero__slogan-badge{position:relative;z-index:15;transform:rotate(-7deg);display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;margin:1.4rem auto 0;filter:drop-shadow(0 4px 10px rgba(0,0,0,.92));animation:subtleFloat 6.5s ease-in-out infinite}
+    .hero__footer{margin-top:.5rem}
+    .hero__features{animation:entryFadeUp .8s .5s var(--ease-out-expo) both}
+    .hero__nav-link:not(.is-active){position:relative}
+    .hero__nav-link:not(.is-active)::after{content:"";position:absolute;left:.85rem;right:.85rem;bottom:.2rem;height:2px;background:var(--yellow-primary);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease-out-expo)}
+    .hero__nav-link:not(.is-active):hover::after{transform:scaleX(1)}
+    .feature-item{transition:transform .35s var(--ease-out-expo)}
+    .feature-item:hover{transform:translateY(-3px)}
+    .feature-item__icon{transition:background .3s,color .3s}
+    .feature-item:hover .feature-item__icon{background:var(--yellow-primary);color:var(--text-dark)}
+    @media (max-width:767px){
+      .hero__main{justify-content:center}
+      .hero__content{padding-right:0}
+      .hero__visual{margin-top:0}
+    }
+    @media (max-width:520px){.btn-order{display:none}}
+    @media (min-width:1024px){
+      .hero__main{grid-template-columns:1.1fr .9fr;gap:2rem}
+      .hero__visual{align-self:center}
+      .hero__slogan-badge{margin:0 auto;transform:rotate(-8deg)}
+      .hero__slogan-text{font-size:clamp(2.2rem,3.4vw,3.3rem)}
+      .hero__slogan-crown{width:clamp(40px,4vw,56px)}
+      .hero__slogan-underline{width:clamp(70px,7vw,110px)}
+    }
+
+    /* ==========================================================================
+       MEJORAS: TIPOGRAFÍA Y DISEÑO DE SECCIONES, ANIMACIONES DE ENTRADA Y SALIDA
+       ========================================================================== */
+    :root{--ease-in-out:cubic-bezier(.65,0,.35,1);--ease-in:cubic-bezier(.55,0,.8,.2);--line:rgba(255,255,255,.12);--muted:rgba(244,240,234,.8)}
+    a,button{-webkit-tap-highlight-color:transparent}
+    :focus-visible{outline:2.5px solid var(--yellow-bright);outline-offset:3px}
+    ::selection{background:var(--yellow-primary);color:var(--text-dark)}
+
+    /* Respuesta visual al pulsar */
+    .btn-menu:active,.btn-order:active{transform:translateY(0) scale(.97)}
+    .cart-btn:active,.rb:active{transform:scale(.92)}
+    .cart-fab.is-on:active{transform:scale(.94)}
+    .sauce:active{transform:scale(.95)}
+    .hero__nav-link:active,.scroll-indicator:active{opacity:.75}
+
+    /* Menú lateral móvil: enlaces escalonados al abrir, salida rápida al cerrar */
+    .mobile-drawer{visibility:hidden;transition:transform .38s var(--ease-in),visibility 0s linear .38s}
+    .mobile-drawer.is-open{visibility:visible;transition:transform .5s var(--ease-out-expo),visibility 0s}
+    .mobile-drawer__list li{opacity:0;transform:translateX(18px);transition:opacity .2s,transform .2s}
+    .mobile-drawer.is-open .mobile-drawer__list li{opacity:1;transform:none;transition:opacity .55s var(--ease-out-expo),transform .55s var(--ease-out-expo);transition-delay:calc(.12s + var(--i,0) * .06s)}
+    .mobile-drawer__link{transition:color .25s,padding-left .3s var(--ease-out-expo)}
+    .mobile-drawer__link:hover{padding-left:.4rem}
+
+    /* Aparición al hacer scroll (una sola vez) */
+    .js .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease-out-expo),transform .8s var(--ease-out-expo);transition-delay:var(--d,0s)}
+    .js .reveal--right{transform:translateX(28px)}
+    .js .reveal--scale{transform:translateY(14px) scale(.96)}
+    .js .reveal.in{opacity:1;transform:none}
+    .js .reveal.rv-done{transition-delay:0s}
+    .js .member.rv-done{transition:background .3s}
+
+    /* Secciones */
+    .sec{position:relative;padding:clamp(4rem,10vw,7.5rem) clamp(1.1rem,4vw,3.25rem);background:radial-gradient(ellipse 60% 40% at 85% 0%,rgba(245,184,0,.1),transparent 70%),radial-gradient(ellipse 45% 35% at 0% 100%,rgba(227,30,36,.06),transparent 70%),var(--bg-dark)}
+    .sec::before{content:"";position:absolute;top:0;left:50%;width:min(240px,50%);height:3px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,var(--yellow-primary),transparent)}
+    .sec__in{max-width:1120px;margin:0 auto}
+    .eyebrow{display:inline-block;font-family:var(--font-script);color:var(--yellow-bright);font-size:clamp(1.4rem,3.6vw,1.9rem);font-weight:700;line-height:1;rotate:-2deg;transform-origin:left center}
+    .sec__title{font-family:var(--font-brush);font-weight:400;text-transform:uppercase;font-size:clamp(2.1rem,6.2vw,3.7rem);line-height:1.04;letter-spacing:.01em;margin:.5rem 0 1rem;text-wrap:balance}
+    .sec__title b{color:var(--yellow-primary);font-weight:400}
+    .sec__lead{color:var(--muted);max-width:50ch;line-height:1.7;font-size:clamp(.98rem,2.4vw,1.08rem);font-weight:500;text-wrap:pretty}
+
+    /* Menú: carta con puntos guía + imagen fija a un lado en escritorio */
+    .menu-wrap{display:grid;gap:2.25rem;grid-template-areas:"head" "fig" "list"}
+    .menu-head{grid-area:head}
+    .fig{grid-area:fig;margin:0;width:100%;max-width:520px;justify-self:center}
+    .menu-list{grid-area:list;display:flex;flex-direction:column}
+    @media (min-width:960px){
+      .menu-wrap{grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr);grid-template-areas:"head fig" "list fig";column-gap:clamp(2.5rem,6vw,5rem);row-gap:2.5rem}
+      .fig{align-self:start;justify-self:stretch;position:sticky;top:2rem}
+    }
+    .fig__frame{position:relative;aspect-ratio:5/4;border-radius:28px;overflow:hidden;isolation:isolate;background:radial-gradient(circle at 50% 44%,rgba(245,184,0,.34),transparent 64%),linear-gradient(160deg,#2a160a,#120a05);border:1px solid rgba(245,184,0,.3);box-shadow:0 26px 60px rgba(0,0,0,.55)}
+    .fig__box{position:relative}
+    .fig__box::before{content:"";position:absolute;inset:14px -12px -12px 14px;border:2px solid var(--yellow-primary);border-radius:28px;opacity:.5;pointer-events:none}
+    .fig__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:clamp(.6rem,3vw,1.5rem);filter:drop-shadow(0 18px 24px rgba(0,0,0,.55));transition:transform 1.2s var(--ease-out-expo)}
+    .fig:hover .fig__frame img{transform:scale(1.04)}
+    .fig__ph{display:none;position:absolute;inset:0;margin:auto;width:34%;height:auto;color:var(--yellow-primary)}
+    .fig__frame.is-broken img{display:none}
+    .fig__frame.is-broken .fig__ph{display:block}
+    .fig__cap{margin-top:1.1rem;font-family:var(--font-script);font-size:clamp(1.3rem,3vw,1.6rem);font-weight:700;color:var(--yellow-bright);text-align:center;line-height:1.1}
+
+    .dish{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:1rem;row-gap:.3rem;align-items:start;padding:1.4rem 0;border-bottom:1px solid var(--line)}
+    .dish:first-child{padding-top:.3rem}
+    .dish__th{grid-row:1/4}
+    .dish__head{display:flex;align-items:baseline;gap:.7rem;min-width:0}
+    .dish__name{font:800 clamp(1.08rem,3.4vw,1.3rem)/1.2 var(--font-sans);letter-spacing:-.01em;transition:color .25s}
+    .dish__lead{flex:1;min-width:.8rem;border-bottom:2px dotted rgba(255,255,255,.26);translate:0 -.3em}
+    .dish__price{font-family:var(--font-brush);font-weight:400;color:var(--yellow-bright);font-size:clamp(1.2rem,3.8vw,1.55rem);line-height:1;white-space:nowrap}
+    .dish__price small{font:700 .55em var(--font-sans);letter-spacing:.06em;opacity:.8;margin-left:.15em}
+    .dish__desc{color:var(--muted);font-size:.95rem;line-height:1.6;max-width:46ch}
+    .dish__ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:.6rem}
+    .dish__lbl{flex-basis:100%;font-size:.84rem;font-weight:700;color:var(--muted)}
+    .dish:hover .dish__name{color:var(--yellow-primary)}
+    .dish .thumb{transition:transform .45s var(--ease-out-expo)}
+    .dish:hover .thumb{transform:scale(1.06) rotate(-2deg)}
+    .sauce{font:700 .82rem var(--font-sans);color:var(--text-white);background:transparent;border:1.5px solid rgba(255,255,255,.28);padding:.45rem .9rem;border-radius:999px;cursor:pointer;transition:background .25s,border-color .25s,color .25s,transform .2s}
+    .sauce:hover{border-color:var(--yellow-primary);transform:translateY(-1px)}
+    .sauce[aria-pressed="true"],.sauce[aria-checked="true"]{background:var(--yellow-primary);border-color:var(--yellow-primary);color:var(--text-dark)}
+    .dish__sauces{display:contents}
+    button.btn-menu{border:0;cursor:pointer}
+    .btn-add{margin-left:auto;padding:.62rem 1.25rem;font-size:.92rem;min-width:11.5rem;justify-content:center}
+    .btn-add.is-added{background:#25d366;color:#06220f;box-shadow:0 8px 22px rgba(37,211,102,.35)}
+    @media (max-width:520px){.dish__ctrl .btn-add{flex-basis:100%;margin-top:.35rem}}
+
+    /* Miniaturas (menú y carrito) con alternativa si falta la imagen */
+    .thumb{position:relative;flex:none;width:52px;height:52px;border-radius:13px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,rgba(245,184,0,.3),transparent 72%),#1d1008;border:1px solid rgba(245,184,0,.28)}
+    .thumb--lg{width:68px;height:68px;border-radius:16px}
+    .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:3px}
+    .thumb--wide{width:68px}
+    .thumb--lg.thumb--wide{width:92px}
+    .thumb svg{display:none;width:58%;height:58%;color:var(--yellow-primary)}
+    .thumb.is-ph svg,.thumb.is-broken svg{display:block}
+    .thumb.is-broken img{display:none}
+
+    /* Carrito */
+    .cart-btn{position:relative;width:42px;height:42px;flex-shrink:0;border-radius:50%;border:1.5px solid var(--yellow-primary);background:rgba(15,10,5,.72);color:var(--yellow-primary);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s var(--ease-out-expo)}
+    .cart-btn:hover{background:var(--yellow-primary);color:var(--text-dark);transform:translateY(-2px)}
+    .cart-btn svg{width:20px;height:20px}
+    .cart-btn i{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:#e31e24;color:#fff;font:800 .72rem/20px var(--font-sans);text-align:center;font-style:normal}
+    .bump{animation:bump .35s ease}
+    @keyframes bump{40%{transform:scale(1.4)}}
+    .pop{animation:pop .38s var(--ease-out-expo)}
+    @keyframes pop{40%{transform:scale(1.14)}}
+    .cart-fab{position:fixed;right:1rem;bottom:1rem;z-index:35;width:54px;height:54px;background:var(--yellow-primary);color:var(--text-dark);box-shadow:0 8px 22px rgba(0,0,0,.6);transform:translateY(90px);opacity:0;pointer-events:none}
+    .cart-fab.is-on{transform:none;opacity:1;pointer-events:auto}
+    .cart-fab.is-on:hover{transform:translateY(-2px)}
+    .cart__bk{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(3px);z-index:39;opacity:0;pointer-events:none;transition:opacity .35s ease}
+    .cart__bk.is-open{opacity:1;pointer-events:auto}
+    .cart{position:fixed;top:0;right:0;width:min(100vw,410px);height:100%;height:100dvh;background:rgba(14,9,5,.98);border-left:1px solid rgba(245,184,0,.25);z-index:40;display:flex;flex-direction:column;transform:translateX(100%);visibility:hidden;transition:transform .34s var(--ease-in),visibility 0s linear .34s}
+    .cart.is-open{transform:none;visibility:visible;transition:transform .5s var(--ease-out-expo),visibility 0s}
+    .cart.is-open .cart__head,.cart.is-open .cart__foot{animation:entryFadeUp .5s .1s var(--ease-out-expo) both}
+    .cart__head{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.25rem;border-bottom:1px solid var(--line);font-family:var(--font-brush);text-transform:uppercase;font-size:1.5rem;letter-spacing:.01em}
+    .cart__x{background:none;border:0;color:#fff;font-size:2rem;line-height:1;cursor:pointer;transition:color .2s,transform .25s var(--ease-out-expo)}
+    .cart__x:hover{color:var(--yellow-primary);transform:rotate(90deg)}
+    .cart__list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:.25rem 1.25rem;list-style:none}
+    .cart__empty{padding:2.5rem 0;text-align:center;color:var(--muted);line-height:1.6}
+    .cart__empty:not([hidden]){animation:entryFadeUp .5s var(--ease-out-expo)}
+    .line{display:flex;gap:.8rem;align-items:flex-start;padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.08);overflow:hidden;animation:lineIn .45s var(--ease-out-expo);transition:height .32s var(--ease-in-out),opacity .25s ease,transform .3s var(--ease-in-out),padding .32s var(--ease-in-out),border-color .3s}
+    @keyframes lineIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+    .line.leaving{opacity:0;transform:translateX(28px);padding-top:0;padding-bottom:0;height:0!important;border-bottom-color:transparent}
+    .line__b{flex:1;min-width:0}
+    .line__n{font-weight:800;line-height:1.25}
+    .line__s{font-size:.78rem;color:var(--muted);margin-top:.15rem;line-height:1.4}
+    .line__sub{font-weight:800;color:var(--yellow-bright);white-space:nowrap;font-variant-numeric:tabular-nums}
+    .qty{display:flex;align-items:center;gap:.55rem;margin-top:.5rem}
+    .qty b{display:inline-block;min-width:1.2rem;text-align:center;font-variant-numeric:tabular-nums}
+    .rb{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--yellow-primary);background:transparent;color:var(--yellow-primary);font-weight:800;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+    .rb:hover{background:var(--yellow-primary);color:var(--text-dark)}
+    .qty__del{background:none;border:0;color:#fff;opacity:.65;font-size:.78rem;text-decoration:underline;cursor:pointer;margin-left:.4rem;transition:opacity .2s,color .2s}
+    .qty__del:hover{opacity:1;color:var(--yellow-primary)}
+    .cart__foot{padding:1rem 1.25rem calc(1rem + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+    .cart__total{display:flex;justify-content:space-between;font-weight:800;font-size:1.2rem;margin-bottom:.8rem}
+    .cart__total span:last-child{color:var(--yellow-bright);display:inline-block;font-variant-numeric:tabular-nums}
+    .btn-wa{width:100%;justify-content:center;background:#25d366;color:#06220f;box-shadow:0 8px 22px rgba(37,211,102,.28)}
+    .btn-wa:hover{background:#3be07a;box-shadow:0 12px 28px rgba(37,211,102,.4)}
+    .btn-wa[aria-disabled="true"]{opacity:.45;pointer-events:none}
+    .cart__note{font-size:.76rem;color:var(--muted);text-align:center;margin-top:.7rem;line-height:1.45}
+    @media (max-height:620px){.cart__note{display:none}}
+    .order-toast{bottom:5rem}
+
+    /* Campo «Nombre del cliente» */
+    .field{margin-bottom:.9rem}
+    .field__lbl{display:block;font-size:.88rem;font-weight:800;color:var(--yellow-bright);margin-bottom:.4rem}
+    .field__in{width:100%;font:600 1rem var(--font-sans);color:#fff;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.22);border-radius:14px;padding:.8rem 1rem;transition:border-color .25s,box-shadow .25s,background .25s}
+    .field__in::placeholder{color:rgba(255,255,255,.42)}
+    .field__in:focus{outline:none;border-color:var(--yellow-primary);box-shadow:0 0 0 4px rgba(245,184,0,.18);background:rgba(255,255,255,.09)}
+    .field__msg{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .3s var(--ease-out-expo),opacity .3s}
+    .field__msg>span{overflow:hidden;font-size:.84rem;font-weight:600;color:#ffb4b4;line-height:1.4}
+    .field.is-err .field__in{border-color:#ff6b6b;box-shadow:0 0 0 4px rgba(255,107,107,.16);animation:shake .4s}
+    .field.is-err .field__msg{grid-template-rows:1fr;opacity:1}
+    .field.is-err .field__msg>span{padding-top:.45rem}
+    @keyframes shake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+
+    /* Música ambiental (control discreto) */
+    .music{position:fixed;left:1rem;bottom:1rem;z-index:36;display:flex;align-items:center;gap:.1rem;padding:.25rem;border-radius:999px;background:rgba(15,10,5,.85);border:1.5px solid rgba(245,184,0,.45);backdrop-filter:blur(8px);box-shadow:0 8px 22px rgba(0,0,0,.55);opacity:0;animation:entryFadeUp .7s 1.4s var(--ease-out-expo) forwards}
+    .music[hidden]{display:none}
+    .music__btn{width:38px;height:38px;border-radius:50%;border:0;background:transparent;color:var(--yellow-primary);display:grid;place-items:center;cursor:pointer;transition:background .25s,color .25s,transform .2s}
+    @media (hover:hover){.music__btn:hover{background:var(--yellow-primary);color:var(--text-dark)}.music:not(.is-playing) #music-play:hover{background:rgba(245,184,0,.18);color:var(--yellow-bright)}}
+    .music__btn:active{transform:scale(.9)}
+    .music__btn svg{width:18px;height:18px;grid-area:1/1}
+    .music .i-pause,.music .i-off{display:none}
+    .music.is-playing .i-play{display:none}
+    .music.is-playing .i-pause{display:block}
+    .music.is-muted .i-vol{display:none}
+    .music.is-muted .i-off{display:block}
+    .music__eq{display:flex;align-items:flex-end;gap:2px;width:14px;height:14px;opacity:0;transition:opacity .3s}
+    .music.is-playing:not(.is-muted) .music__eq{opacity:1}
+    .music__eq i{flex:1;height:100%;background:var(--yellow-primary);border-radius:2px;transform-origin:bottom;animation:eq 1s ease-in-out infinite}
+    .music__eq i:nth-child(2){animation-delay:-.4s}
+    .music__eq i:nth-child(3){animation-delay:-.75s}
+    .music__sep{width:1px;height:18px;background:rgba(245,184,0,.3);margin:0 .2rem}
+    .music .i-sfx-off{display:none}
+    .music.is-sfx-off .i-sfx-on{display:none}
+    .music.is-sfx-off .i-sfx-off{display:block}
+    /* Salsa editable dentro del carrito (una sola por arepa) */
+    .line__sa b{color:var(--text-light);font-weight:700}
+    .line__edit{font:700 .74rem var(--font-sans);color:var(--yellow-primary);background:transparent;border:0;padding:.15rem .3rem;margin-left:.25rem;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+    .line__edit:hover{color:var(--yellow-bright)}
+    .line__sauces{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.45rem}
+    .line__sauces[hidden]{display:none}
+    .line__sauces .sauce{font-size:.72rem;padding:.3rem .65rem}
+    /* Estado claro del botón de música: encendido = relleno dorado + barras animadas; apagado = icono tachado */
+    .music.is-playing #music-play{background:var(--yellow-primary);color:var(--text-dark)}
+    .music__hint{display:none;font:700 .72rem var(--font-sans);color:var(--text-light);padding:0 .65rem 0 .25rem;white-space:nowrap}
+    .music.is-pending .music__hint{display:block}
+    .music.is-pending #music-play{animation:musicPulse 1.8s ease-in-out infinite}
+    @keyframes musicPulse{0%,100%{box-shadow:0 0 0 0 rgba(245,184,0,.55)}50%{box-shadow:0 0 0 8px rgba(245,184,0,0)}}
+    @media (prefers-reduced-motion:reduce){.music.is-pending #music-play{animation:none}}
+    @keyframes eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+
+    /* Contacto y proyecto escolar */
+    #contacto{background:radial-gradient(ellipse 55% 45% at 15% 0%,rgba(245,184,0,.08),transparent 70%),#0d0704}
+    .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.25rem 2rem;padding:clamp(1.4rem,4vw,2.2rem);border-radius:22px;border:1px solid rgba(245,184,0,.35);background:linear-gradient(135deg,rgba(245,184,0,.15),rgba(245,184,0,.03) 62%)}
+    .cta__t{font-family:var(--font-brush);font-weight:400;font-size:clamp(1.5rem,4.6vw,2.3rem);line-height:1.1}
+    .cta__p{color:var(--muted);margin-top:.4rem;max-width:44ch;line-height:1.65}
+    .cta .btn-menu{white-space:nowrap}
+    .inst{display:grid;gap:2rem;align-items:center;margin-top:clamp(3rem,8vw,5rem)}
+    .inst>*{min-width:0}
+    .inst__logo{background:#fff;border-radius:20px;padding:1.1rem;width:clamp(130px,30vw,190px);box-shadow:0 18px 40px rgba(0,0,0,.45)}
+    .inst__logo img{display:block;width:100%;height:auto}
+    .inst__meta{display:flex;flex-wrap:wrap;gap:.35rem 2rem;color:var(--muted);margin-bottom:1.6rem;font-size:1rem}
+    .inst__meta strong{color:var(--yellow-bright);font-weight:800}
+    .inst__h{font-family:var(--font-script);font-size:clamp(1.6rem,4vw,2rem);line-height:1;color:var(--yellow-bright);margin-bottom:.7rem}
+    .members{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.35rem 1.5rem}
+    .member{padding:.6rem 0 .6rem 1rem;border-left:3px solid var(--yellow-primary);font-weight:700;font-size:1.02rem;transition:background .3s}
+    .member:hover{background:linear-gradient(90deg,rgba(245,184,0,.14),transparent)}
+    .foot{max-width:1120px;margin:3.5rem auto 0;padding-top:1.2rem;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 1.5rem;font-size:.88rem;color:var(--muted)}
+    .foot a{color:var(--yellow-bright);text-decoration:none;font-weight:700}
+    .foot a:hover{text-decoration:underline}
+    @media (min-width:768px){.inst{grid-template-columns:auto 1fr;gap:3.5rem}}
+
+    /* ===== Rediseño (paleta original: fondo oscuro y acento ámbar, mismas variables) ===== */
+    .menu-wrap{grid-template-columns:1fr!important;grid-template-areas:"head" "list"!important;row-gap:2rem!important}
+    .sauces-strip{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.1rem}
+    .sauces-strip span{display:inline-flex;align-items:center;gap:.45rem;font-weight:700;font-size:.85rem;color:var(--text-light);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:.35rem .8rem}
+    .sauces-strip i{width:.8rem;height:.8rem;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+    .menu-list{display:grid!important;grid-template-columns:1fr;gap:1.25rem}
+    @media(min-width:700px){.menu-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem}}
+    .dish{position:relative;display:flex!important;flex-direction:column;align-items:stretch!important;gap:.55rem!important;padding:1rem 1.1rem 1.2rem!important;background:linear-gradient(180deg,#1d1008,#140a05);border:1px solid rgba(245,184,0,.22)!important;border-radius:22px;box-shadow:0 14px 34px rgba(0,0,0,.45);transition:transform .35s var(--ease-out-expo),box-shadow .35s,border-color .35s}
+    .dish:hover{transform:translateY(-4px);border-color:rgba(245,184,0,.5)!important;box-shadow:0 22px 44px rgba(0,0,0,.55)}
+    .dish__th{align-self:stretch}
+    .dish .thumb.thumb--lg{width:100%;height:clamp(170px,46vw,215px);border:0;border-radius:16px}
+    .dish .thumb img{padding:12px 14px;filter:drop-shadow(0 12px 12px rgba(0,0,0,.55));transition:transform .5s var(--ease-out-expo)}
+    .dish:hover .thumb{transform:none}.dish:hover .thumb img{transform:scale(1.06) rotate(-2deg)}
+    .dish__head{justify-content:space-between}.dish__lead{display:none}
+    .dish .btn-add{flex-basis:100%;width:100%;min-width:0;margin:.4rem 0 0}
+    .dish[data-id="mixta"]::before{content:"La más completa";position:absolute;top:1.6rem;left:1.6rem;z-index:2;background:rgba(9,5,3,.8);border:1px solid rgba(245,184,0,.45);color:var(--yellow-bright);font:800 .72rem var(--font-sans);letter-spacing:.06em;text-transform:uppercase;padding:.3rem .65rem;border-radius:999px}
+    .dish[data-id="gaseosa"]{grid-column:1/-1;display:grid!important;align-items:center!important;grid-template-columns:84px 1fr;column-gap:1rem}
+    .dish[data-id="gaseosa"] .dish__th{grid-row:1/4}
+    .dish[data-id="gaseosa"] .thumb.thumb--lg{height:84px}
+    .dish[data-id="gaseosa"] .btn-add{width:auto;flex-basis:auto}
+    .school__head{display:grid;gap:1.5rem;align-items:center}
+    .school__arepa{width:clamp(180px,55vw,260px);height:auto;margin-inline:auto;filter:drop-shadow(0 18px 20px rgba(0,0,0,.6))}
+    @media(min-width:900px){.school__head{grid-template-columns:auto 1fr 280px}}
+    .school__facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin:2.2rem 0}
+    .school__facts div{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:16px;padding:1rem 1.2rem}
+    .school__facts small{display:block;color:var(--yellow-bright);font:700 .78rem var(--font-sans);letter-spacing:.08em;text-transform:uppercase}
+    .school__facts strong{font-size:1.2rem;font-weight:800}
+    .school .members{gap:.8rem 1rem}
+    @media(min-width:900px){.school .members{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    .school .member{display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.04);border-radius:0 14px 14px 0;padding:.7rem .9rem}
+    .member__i{flex:none;width:2.2rem;height:2.2rem;border-radius:50%;border:1.5px solid var(--yellow-primary);color:var(--yellow-bright);display:grid;place-items:center;font-family:var(--font-brush)}
+    .site-foot{background:var(--bg-dark);color:var(--text-light);padding:2.5rem clamp(1.1rem,4vw,3.25rem);border-top:1px solid rgba(245,184,0,.3)}
+    .site-foot__in{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+    .site-foot__brand{font-family:var(--font-brush);font-weight:400;font-size:1.5rem;color:var(--yellow-bright)}
+    .site-foot__small{flex-basis:100%;font-size:.85rem;opacity:.7}
+    .wa-fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));z-index:34;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.55),0 0 0 3px rgba(255,255,255,.14);transition:transform .25s var(--ease-out-expo),box-shadow .25s}
+    .wa-fab svg{width:30px;height:30px}
+    .wa-fab:hover{transform:translateY(-2px) scale(1.06);box-shadow:0 12px 28px rgba(0,0,0,.6),0 0 0 3px rgba(255,255,255,.25)}
+    .wa-fab:focus-visible{outline:3px solid #fff;outline-offset:3px}
+    .cart-fab{bottom:calc(1rem + 56px + .75rem + env(safe-area-inset-bottom,0px))!important}
+    .btn-menu svg{flex:none}
+
+    /* ===== Checkout: pago, entrega y ubicación ===== */
+    .cart__foot{display:flex;flex-direction:column;max-height:74%;min-height:0}
+    .co{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;margin:0 -.35rem;padding:0 .35rem .2rem;scroll-padding-bottom:1rem}
+    .co [hidden]{display:none!important}
+    .cart__foot .cart__total{margin:.7rem 0}
+    .co__h{font-weight:800;font-size:1.02rem;margin:1.1rem 0 .6rem}
+    .pay{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+    .pay__c{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;min-height:88px;padding:.7rem .5rem;border-radius:16px;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.05);color:#fff;font:800 .95rem var(--font-sans);cursor:pointer;transition:border-color .25s,background .25s,transform .2s}
+    .pay__c[aria-checked=true]{border-color:var(--yellow-primary);background:rgba(245,184,0,.13);box-shadow:0 0 0 3px rgba(245,184,0,.16)}
+    .pay__c[aria-checked=true]::after{content:"✓";position:absolute;top:6px;right:8px;width:20px;height:20px;border-radius:50%;background:var(--yellow-primary);color:var(--text-dark);font-size:.75rem;display:grid;place-items:center}
+    .pay__c:active{transform:scale(.97)}
+    .nq{display:grid;place-items:center;height:34px;padding:0 .8rem;border-radius:10px;background:#fff;color:#da0081;font:800 1.05rem/1 var(--font-sans);letter-spacing:-.02em}
+    .nq img{height:22px;width:auto;display:block}
+    .pay__ico{font-size:1.6rem;line-height:34px}
+    .co__box{margin-top:.8rem;padding:.9rem;border-radius:16px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04)}
+    .chips{display:flex;flex-wrap:wrap;gap:.45rem}
+    .chip{min-height:44px;padding:.4rem .85rem;border-radius:999px;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:#fff;font:700 .9rem var(--font-sans);cursor:pointer}
+    .chip[aria-checked=true]{background:var(--yellow-primary);border-color:var(--yellow-primary);color:var(--text-dark)}
+    .chip.is-off{opacity:.35;cursor:not-allowed}
+    .change{display:flex;justify-content:space-between;gap:1rem;margin-top:.7rem;padding:.7rem .9rem;border-radius:14px;background:rgba(245,184,0,.12);border:1px solid rgba(245,184,0,.35);font-weight:800}
+    .change b{color:var(--yellow-bright);font-variant-numeric:tabular-nums}
+    .co__msg{font-size:.82rem;line-height:1.4;margin-top:.45rem;color:#ff8a8a}
+    .co__msg:empty{display:none}
+    .co__ok{color:#7be29a}
+    .co__hint{font-size:.8rem;color:var(--muted);line-height:1.45}
+    .co__link{background:none;border:0;color:var(--yellow-bright);font:700 .82rem var(--font-sans);text-decoration:underline;padding:.5rem 0;cursor:pointer}
+    .gps,.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:48px;padding:.7rem 1.2rem;border-radius:999px;border:1.5px solid rgba(245,184,0,.55);color:var(--yellow-bright);background:rgba(245,184,0,.07);font:800 .95rem var(--font-sans);text-decoration:none;cursor:pointer;transition:background .25s}
+    .gps{width:100%;border-radius:14px;border-style:dashed}
+    .gps:hover,.btn-ghost:hover{background:rgba(245,184,0,.16)}
+    .gps:disabled{opacity:.7;cursor:progress}
+    .gps svg,.btn-ghost svg{width:20px;height:20px;flex:none}
+    .gps.is-load svg{animation:coSpin 1s linear infinite}
+    @keyframes coSpin{to{transform:rotate(360deg)}}
+    .mini{display:block;width:100%;height:170px;border:0;border-radius:14px;margin-top:.6rem}
+
+    /* ==========================================================================
+       UBICACIÓN: IDENTIFICACIÓN DISCRETA + MAPA INTERACTIVO + ANIMACIÓN DE LLEGADA
+       ========================================================================== */
+    .sec--stand {
+      padding-block: clamp(2.8rem, 7vw, 4.8rem);
+    }
+    .stand {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .stand__top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem 2rem;
+      padding-bottom: 1.15rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .stand__info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+    }
+    .stand__title {
+      font-family: var(--font-sans);
+      font-size: clamp(1.22rem, 2.8vw, 1.65rem);
+      font-weight: 800;
+      color: var(--text-white);
+      letter-spacing: -0.01em;
+      line-height: 1.22;
+      margin: 0.15rem 0 0;
+    }
+    .stand__title span {
+      color: var(--yellow-primary);
+    }
+    .stand__date {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--yellow-bright);
+    }
+    .stand__ref {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .stand__go {
+      min-height: 42px;
+      padding: 0.55rem 1.05rem;
+      font-size: 0.86rem;
+      align-self: flex-start;
+    }
+    @media (min-width: 640px) {
+      .stand__go {
+        align-self: center;
+      }
+    }
+
+    /* Cuadrícula equilibrada para coexistencia de Mapa + Animación de llegada */
+    .stand__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.35rem;
+      align-items: stretch;
+    }
+    @media (min-width: 920px) {
+      .stand__grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 1.6rem;
+      }
+    }
+
+    .stand__panel {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .stand__ptitle {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--yellow-bright);
+      margin: 0 0 0.6rem;
+    }
+    .stand__map,
+    .stand__anim-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 7 / 4;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(245, 184, 0, 0.3);
+      background: #140b05;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+    }
+    .stand__map iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .stand__cap {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 0.55rem;
+      line-height: 1.45;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* Escena ilustrada de llegada al stand */
+    .stand__anim-box {
+      background:
+        radial-gradient(circle at 84% 38%, rgba(245, 184, 0, 0.16), transparent 48%),
+        linear-gradient(180deg, #160c06 0%, #100804 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .arrival-svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .arrival-badge {
+      position: absolute;
+      left: 3.5rem;
+      bottom: 0.7rem;
+      max-width: calc(100% - 4.4rem);
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.38rem 0.78rem;
+      border-radius: 999px;
+      background: rgba(12, 7, 3, 0.9);
+      border: 1px solid rgba(245, 184, 0, 0.48);
+      color: var(--text-white);
+      font-size: 0.76rem;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+      pointer-events: none;
+    }
+    .arrival-badge.is-arrived {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .arrival-badge__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #25d366;
+      box-shadow: 0 0 8px #25d366;
+      flex-shrink: 0;
+    }
+    .arrival-replay {
+      position: absolute;
+      left: 0.7rem;
+      bottom: 0.6rem;
+      z-index: 4;
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border-radius: 50%;
+      background: rgba(12, 7, 3, 0.92);
+      border: 1.5px solid var(--yellow-primary);
+      color: var(--yellow-bright);
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .arrival-replay::after {
+      content: "";
+      position: absolute;
+      inset: -6px; /* área táctil de 46 px */
+      border-radius: 50%;
+    }
+    .arrival-replay svg { width: 17px; height: 17px; display: block; }
+    .arrival-replay:hover { background: rgba(245, 184, 0, 0.18); }
+    .arrival-replay:active { transform: scale(0.94); }
+    .arrival-replay:focus-visible { outline: 2px solid var(--yellow-bright); outline-offset: 3px; }
+    .stand-glow {
+      opacity: 0.25;
+      transition: opacity 0.45s ease;
+    }
+    .stand__anim-box.is-arrived .stand-glow {
+      opacity: 0.95;
+    }
+    .gps,.btn-ghost{white-space:nowrap}
+
+    /* ===== Carrito compacto (resumen siempre visible + formulario con scroll + barra inferior) ===== */
+    .cart__head{padding:.7rem 1rem;font-size:1.25rem}
+    .cart__sum{flex:none;border-bottom:1px solid var(--line)}
+    .sum__t{width:100%;display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.6rem 1rem;background:rgba(245,184,0,.09);border:0;color:#fff;font:700 .92rem var(--font-sans);cursor:pointer;text-align:left}
+    .sum__t b{color:var(--yellow-bright);font-variant-numeric:tabular-nums}
+    .sum__t i{font-style:normal;transition:transform .25s}
+    .sum__t[aria-expanded=false] i{transform:rotate(-90deg)}
+    .cart__list{flex:none;max-height:min(24dvh,190px);padding:0 1rem}
+    .cart__sum.is-closed .cart__list{display:none}
+    .cart__empty{padding:.9rem 0}
+    .line{padding:.45rem 0;gap:.6rem;align-items:center}
+    .line .thumb{width:44px;height:36px;border-radius:9px}
+    .line__b .line__s:not(.line__sa){display:none}
+    .line__n{font-size:.92rem}
+    .line .qty{margin-top:.25rem;gap:.4rem}
+    .line .rb{width:28px;height:28px}
+    .cart__foot{flex:1 1 auto;min-height:0;max-height:none;padding:.5rem 1rem calc(.6rem + env(safe-area-inset-bottom,0px));border-top:0}
+    .cart__bar{display:flex;align-items:center;gap:.8rem;padding-top:.6rem;margin-top:.4rem;border-top:1px solid var(--line)}
+    .cart__bar .cart__total{flex:none;flex-direction:column;margin:0;font-size:1.2rem;line-height:1.1}
+    .cart__bar .cart__total span:first-child{font-size:.7rem;font-weight:700;color:var(--muted)}
+    .cart__bar .btn-wa{flex:1;width:auto;min-height:46px;padding:.55rem .8rem;font-size:.9rem;white-space:nowrap}
+    .cart__note{margin-top:.4rem;font-size:.7rem}
+    @media (max-height:760px){.cart__note{display:none}}
+    .co{margin:0 -.2rem;padding:0 .2rem .3rem}
+    .co .field{margin-bottom:.5rem}
+    .co .field__lbl,.co .co__h+.field__lbl{font-size:.72rem;margin-bottom:.2rem}
+    .co .field__in{padding:.5rem .75rem;border-radius:11px;min-height:42px}
+    .co__b{margin-top:.65rem;padding:.65rem;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.03)}
+    .co__h{margin:0 0 .5rem;font-size:.78rem;letter-spacing:.03em;text-transform:uppercase;color:var(--yellow-bright)}
+    .pay{gap:.5rem}
+    .pay__c{flex-direction:row;min-height:46px;padding:.4rem .6rem;gap:.5rem;border-radius:12px;font-size:.92rem}
+    .pay__c[aria-checked=true]::after{top:50%;right:7px;transform:translateY(-50%);width:18px;height:18px}
+    .nq-img{height:24px;width:auto;max-width:78px;object-fit:contain;display:block;flex-shrink:0}
+    #cash-box{margin-top:.6rem}#nq-box{margin-top:.4rem}
+    .chips{gap:.35rem}.chip{min-height:38px;padding:.25rem .7rem;font-size:.85rem}
+    .change{margin-top:.5rem;padding:.5rem .75rem;font-size:.9rem}
+    .gps{min-height:42px;padding:.4rem .9rem;font-size:.88rem;border-radius:12px}
+    .mini{height:120px;margin:.4rem 0}
+    .co__g{display:grid}
+    @media (min-width:900px){
+      .cart{width:min(100vw,860px)}
+      .cart.is-open{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);grid-template-rows:auto minmax(0,1fr)}
+      .cart__head{grid-column:1/-1}
+      .cart__sum{display:flex;flex-direction:column;min-height:0;border-bottom:0;border-right:1px solid var(--line)}
+      .sum__t{pointer-events:none}.sum__t i{display:none}
+      .cart__sum.is-closed .cart__list{display:block}
+      .cart__list{flex:1;max-height:none}
+      .co__g{grid-template-columns:1.4fr 1fr;gap:0 .5rem}
+    }
+  </style>
+<script>document.documentElement.className='js'</script>
+</head>
+<body>
+
+  <section class="hero" id="inicio" aria-label="Portada principal Arepas Express">
+
+    <!-- ======================================================================
+         1. VIDEO REAL DE FONDO DE VIMEO (SIN LOGOS EN EL FONDO)
+         ====================================================================== -->
+    <div class="hero__video-bg" aria-hidden="true">
+      <div class="hero__vimeo-container">
+        <iframe
+          id="hero-vimeo-iframe"
+          class="hero__vimeo-iframe"
+          src="https://player.vimeo.com/video/1236867773?badge=0&autopause=0&player_id=0&app_id=58479&background=1&autoplay=1&loop=1&muted=1&controls=0&playsinline=1&dnt=1"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          title="video fondo arepas express"
+          tabindex="-1">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Capas de contraste y mesa de madera -->
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__wood-table" aria-hidden="true"></div>
+
+    <!-- Hojas verdes desenfocadas flotantes como en las imágenes de referencia -->
+    <svg class="ambient-leaf ambient-leaf--tl" viewBox="0 0 100 60" fill="none" aria-hidden="true">
+      <path d="M5 55C20 15 65 5 95 10C80 45 40 60 5 55Z" fill="#2d6a1e"/>
+      <path d="M5 55C35 38 65 25 95 10" stroke="#4ca634" stroke-width="2"/>
+    </svg>
+    <svg class="ambient-leaf ambient-leaf--center" viewBox="0 0 100 60" fill="none" aria-hidden="true">
+      <path d="M8 12C42 6 76 22 94 52C56 56 24 42 8 12Z" fill="#46992b"/>
+      <path d="M8 12C38 26 66 38 94 52" stroke="#74c655" stroke-width="2"/>
+    </svg>
+    <svg class="ambient-leaf ambient-leaf--bl" viewBox="0 0 100 60" fill="none" aria-hidden="true">
+      <path d="M5 55C20 15 65 5 95 10C80 45 40 60 5 55Z" fill="#255818"/>
+      <path d="M5 55C35 38 65 25 95 10" stroke="#3e8e2a" stroke-width="2"/>
+    </svg>
+    <svg class="ambient-leaf ambient-leaf--mr" viewBox="0 0 100 60" fill="none" aria-hidden="true">
+      <path d="M5 55C20 15 65 5 95 10C80 45 40 60 5 55Z" fill="#347824"/>
+      <path d="M5 55C35 38 65 25 95 10" stroke="#52b338" stroke-width="2"/>
+    </svg>
+    <svg class="ambient-leaf ambient-leaf--br" viewBox="0 0 100 60" fill="none" aria-hidden="true">
+      <path d="M5 55C20 15 65 5 95 10C80 45 40 60 5 55Z" fill="#255818"/>
+    </svg>
+
+    <!-- ======================================================================
+         2. ENCABEZADO SUPERIOR (LOGO ÚNICO EN LA ESQUINA SUPERIOR IZQUIERDA)
+         ====================================================================== -->
+    <header class="hero__header">
+      <a href="#inicio" class="brand-logo" aria-label="Arepas Express - Inicio">
+        <!-- Emblema único en la esquina superior izquierda (no se duplica en ningún otro lado) -->
+        <svg id="brand-logo-img" class="brand-logo__svg" viewBox="0 0 220 155" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo Arepas Express">
+          <path d="M110 4L113 24H107L110 4Z" fill="#F5B800"/>
+          <path d="M78 12L90 29L85 32L78 12Z" fill="#F5B800"/>
+          <path d="M142 12L135 32L130 29L142 12Z" fill="#F5B800"/>
+          <g transform="rotate(-16 58 55)">
+            <rect x="46" y="18" width="22" height="65" rx="8" fill="#4A1208" stroke="#FFFFFF" stroke-width="3"/>
+            <rect x="46" y="42" width="22" height="22" fill="#E31E24"/>
+            <rect x="51" y="10" width="12" height="8" rx="2" fill="#E31E24" stroke="#FFFFFF" stroke-width="2"/>
+            <path d="M49 53C53 50 61 50 65 53" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <g transform="rotate(16 162 55)">
+            <rect x="152" y="18" width="22" height="65" rx="8" fill="#101828" stroke="#FFFFFF" stroke-width="3"/>
+            <rect x="152" y="42" width="22" height="22" fill="#005CB9"/>
+            <rect x="157" y="10" width="12" height="8" rx="2" fill="#005CB9" stroke="#FFFFFF" stroke-width="2"/>
+            <circle cx="163" cy="53" r="5" fill="#E31E24" stroke="#FFFFFF" stroke-width="1.5"/>
+          </g>
+          <ellipse cx="110" cy="62" rx="48" ry="26" fill="#F5B800" stroke="#1A0F07" stroke-width="4"/>
+          <path d="M64 60C82 48 138 48 156 60" stroke="#7A3E06" stroke-width="4" stroke-linecap="round"/>
+          <path d="M68 63C85 55 135 55 152 63" stroke="#4CA634" stroke-width="5" stroke-linecap="round"/>
+          <path d="M72 67C92 61 128 61 148 67" stroke="#FFE066" stroke-width="5" stroke-linecap="round"/>
+          <rect x="20" y="76" width="180" height="44" rx="14" fill="#0C0704" stroke="#FFFFFF" stroke-width="3.5"/>
+          <rect x="44" y="114" width="132" height="32" rx="10" fill="#0C0704" stroke="#FFFFFF" stroke-width="3"/>
+          <text x="110" y="108" text-anchor="middle" fill="#FFFFFF" font-family="'Permanent Marker', sans-serif" font-weight="900" font-size="33" letter-spacing="1">AREPAS</text>
+          <text x="110" y="137" text-anchor="middle" fill="#F5B800" font-family="'Permanent Marker', sans-serif" font-weight="900" font-size="22" letter-spacing="1.5">EXPRESS</text>
+        </svg>
+      </a>
+
+      <!-- Barra de navegación de Escritorio (idéntica a la imagen de referencia de PC) -->
+      <nav class="hero__nav" aria-label="Navegación principal">
+        <a href="#inicio" class="hero__nav-link is-active">Inicio</a>
+        <a href="#menu" class="hero__nav-link">Nuestro menú</a>
+        <a href="#pedidos" class="hero__nav-link" id="nav-pedidos-link">Pedidos</a>
+        <a href="#contacto" class="hero__nav-link">Contacto</a>
+      </nav>
+
+      <!-- Botón Haz tu pedido + Menú Hamburguesa -->
+      <div class="hero__actions">
+        <button type="button" class="cart-btn" aria-label="Abrir carrito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1.5"/><circle cx="19" cy="21" r="1.5"/><path d="M2 3h3l2.68 12.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><i class="js-count" hidden>0</i></button>
+
+        <button type="button" class="btn-order" id="btn-order-header" aria-label="Haz tu pedido">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          <span>Haz tu pedido</span>
+        </button>
+
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle-btn"
+          aria-label="Abrir menú de navegación"
+          aria-expanded="false"
+          aria-controls="mobile-drawer">
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Menú desplegable móvil -->
+    <div class="mobile-drawer__backdrop" id="drawer-backdrop" aria-hidden="true"></div>
+    <aside class="mobile-drawer" id="mobile-drawer" aria-label="Menú móvil" aria-hidden="true">
+      <ul class="mobile-drawer__list">
+        <li style="--i:0"><a href="#inicio" class="mobile-drawer__link">Inicio <span>→</span></a></li>
+        <li style="--i:1"><a href="#menu" class="mobile-drawer__link">Nuestro menú <span>→</span></a></li>
+        <li style="--i:2"><a href="#pedidos" class="mobile-drawer__link" id="btn-order-drawer">Pedidos <span>→</span></a></li>
+        <li style="--i:3"><a href="#contacto" class="mobile-drawer__link">Contacto <span>→</span></a></li>
+      </ul>
+    </aside>
+
+    <!-- ======================================================================
+         3. CONTENIDO CENTRAL: TÍTULO CON LUZ EN «EXPRESS» + AREPAS PNG ÚNICA
+         ====================================================================== -->
+    <div class="hero__main">
+
+      <div class="hero__content">
+        <!-- Frase superior inclinada -->
+        <div class="hero__tagline-wrap">
+          <svg class="hero__tagline-sparks" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M26 8L8 16L24 22" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18 28L25 25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <p class="hero__tagline">
+            El verdadero sabor<br>de la tradición
+            <span class="hero__tagline-line" aria-hidden="true"></span>
+          </p>
+          <svg class="hero__tagline-sparks" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M6 14L22 6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <path d="M8 18L26 17" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <path d="M8 22L20 25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <!-- Título Principal: Luz animada únicamente en EXPRESS -->
+        <h1 class="hero__title">
+          <span class="hero__title-arepas">AREPAS</span>
+          <span class="hero__title-express-wrap">
+            <span class="hero__title-express">EXPRESS</span>
+            <svg class="hero__title-underline" viewBox="0 0 380 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M4 15C98 5 245 3 376 7C285 11 140 16 24 20C14 20 5 18 4 15Z" fill="currentColor"/>
+            </svg>
+          </span>
+        </h1>
+
+        <p class="hero__description">
+          Arepas rellenas, frescas y deliciosas.<br>
+          El antojo perfecto, siempre.
+        </p>
+
+        <!-- Botón Ver nuestro menú + flecha circular -->
+        <div class="hero__cta-group">
+          <a href="#menu" class="btn-menu" id="btn-ver-menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="9" cy="21" r="1.5"/>
+              <circle cx="19" cy="21" r="1.5"/>
+              <path d="M2 3h3l2.68 12.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            <span>Ver nuestro menú</span>
+          </a>
+          <a href="#menu" class="btn-menu-arrow" aria-label="Ir a la sección del menú">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Eslogan -->
+      <div class="hero__visual">
+        <div class="hero__slogan-badge" aria-label="Más que una arepa, ¡es felicidad!">
+          <svg class="hero__slogan-crown" viewBox="0 0 48 34" fill="none" aria-hidden="true">
+            <path d="M6 28L10 10L20 20L26 6L33 20L42 10L39 28H6Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="10" cy="6" r="2.2" fill="currentColor"/>
+            <circle cx="26" cy="3" r="2.2" fill="currentColor"/>
+            <circle cx="43" cy="6" r="2.2" fill="currentColor"/>
+          </svg>
+
+          <div class="hero__slogan-inner">
+            <svg class="hero__slogan-rays" viewBox="0 0 200 100" fill="none" aria-hidden="true">
+              <line x1="14" y1="26" x2="4" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="10" y1="50" x2="1" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="16" y1="74" x2="6" y2="82" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="184" y1="22" x2="195" y2="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="188" y1="46" x2="199" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="184" y1="68" x2="195" y2="75" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+
+            <p class="hero__slogan-text">
+              Más que<br>una arepa,
+              <span>¡es felicidad!</span>
+            </p>
+          </div>
+
+          <svg class="hero__slogan-underline" viewBox="0 0 70 12" fill="none" aria-hidden="true">
+            <path d="M4 7C22 2 46 2 66 4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <path d="M18 11C30 9 44 8 54 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================================================================
+         4. ZONA INFERIOR: BENEFICIOS EN MÓVIL + INDICADOR SCROLL + ONDAS
+         ====================================================================== -->
+    <footer class="hero__footer" id="beneficios">
+      <div class="hero__features">
+
+        <div class="feature-item">
+          <div class="feature-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+          </div>
+          <span class="feature-item__label">Ingredientes<br>frescos</span>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/>
+              <line x1="6" y1="17" x2="18" y2="17"/>
+            </svg>
+          </div>
+          <span class="feature-item__label">Recetas<br>tradicionales</span>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="7" cy="17" r="2.5"/>
+              <circle cx="17" cy="17" r="2.5"/>
+              <path d="M9.5 17h5"/>
+              <path d="M5 17H3v-4l2-5h7l2 4h3a2 2 0 0 1 2 2v3h-1.5"/>
+              <path d="M14 6h3l2 3"/>
+            </svg>
+          </div>
+          <span class="feature-item__label">Pedido rápido<br>y seguro</span>
+        </div>
+
+      </div>
+
+      <a href="#menu" class="scroll-indicator" aria-label="Desplazarse hacia el menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </a>
+    </footer>
+
+    <!-- Ondas amarillas en las esquinas inferiores -->
+    <svg class="hero__bottom-waves" viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0 16 C95 16 140 92 245 108 C355 125 450 95 575 160 L0 160 Z" fill="#F5B800"/>
+      <path d="M1440 42 C1345 42 1295 110 1190 118 C1070 128 970 92 840 160 L1440 160 Z" fill="#F5B800"/>
+    </svg>
+
+  </section>
+
+  <section class="sec" id="menu" aria-labelledby="menu-t">
+    <div class="sec__in menu-wrap">
+      <div class="menu-head">
+        <span class="eyebrow reveal">Nuestro menú</span>
+        <h2 class="sec__title reveal" id="menu-t" style="--d:.08s">Elige tu <b>arepa</b></h2>
+        <p class="sec__lead reveal" style="--d:.16s">Todas las arepas incluyen salsas de la casa. Elige las que quieras o pídela sin salsas; no tienen costo adicional.</p>
+        <div class="sauces-strip reveal" style="--d:.2s" aria-label="Salsas de la casa"><span><i style="--c:#efe6c8"></i>Tártara</span><span><i style="--c:#f3c23a"></i>Piña</span><span><i style="--c:#f4a08a"></i>Rosada</span><span><i style="--c:#6b2a14"></i>BBQ</span></div>
+      </div>
+
+      <div class="menu-list" id="menu-list"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="contacto" aria-labelledby="cta-t">
+    <div class="sec__in">
+      <div class="cta reveal">
+        <div>
+          <h2 class="cta__t" id="cta-t">¿Se te antojó una arepa?</h2>
+          <p class="cta__p">Arma tu pedido desde el menú o escríbenos directo por WhatsApp al +57 311 3562158.</p>
+        </div>
+        <a class="btn-menu" href="https://wa.me/573113562158" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          <span>Escribir por WhatsApp</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECCIÓN DE UBICACIÓN: IDENTIFICACIÓN DISCRETA + GOOGLE MAPS + ANIMACIÓN
+       ======================================================================== -->
+  <section class="sec sec--stand" id="encuentranos" aria-labelledby="loc-t">
+    <div class="sec__in stand">
+
+      <div class="stand__top">
+        <div class="stand__info">
+          <span class="eyebrow reveal">Ubicación del evento</span>
+          <h2 class="stand__title reveal" id="loc-t" style="--d:.06s">
+            <span>Arepas Express</span> — IE San Mateo, Sede Principal
+          </h2>
+          <p class="stand__date reveal" style="--d:.12s">Fecha: 23 de octubre.</p>
+          <p class="stand__ref reveal" style="--d:.16s">Barrio San Mateo, Calle 24 Mz. 2 Lote 4 · Magangué, Bolívar</p>
+        </div>
+
+        <a class="btn-ghost stand__go reveal" style="--d:.2s" href="https://maps.app.goo.gl/uKx6ehqAqxNtqgcEA" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m3 11 18-8-8 18-2-8-8-2Z"/>
+          </svg>
+          <span>Cómo llegar</span>
+        </a>
+      </div>
+
+      <div class="stand__grid">
+        <!-- 1. Mapa interactivo real de Google Maps -->
+        <div class="stand__panel reveal" style="--d:.18s">
+          <h3 class="stand__ptitle">Mapa interactivo</h3>
+          <div class="stand__map">
+            <iframe
+              title="Mapa interactivo de IE San Mateo, Sede Principal en Magangué"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=9.2599667,-74.7738632&z=17&hl=es&output=embed">
+            </iframe>
+          </div>
+          <p class="stand__cap"><span>Arrastra para mover la vista y usa +/− para acercar o alejar.</span></p>
+        </div>
+
+        <!-- 2. Animación ilustrada de llegada en moto al stand de Arepas Express -->
+        <div class="stand__panel reveal" style="--d:.24s">
+          <h3 class="stand__ptitle">Recorrido ilustrado</h3>
+          <div class="stand__anim-box" id="arrival-stage">
+            <svg class="arrival-svg" viewBox="0 0 560 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animación ilustrativa de llegada en moto al stand de Arepas Express en la IE San Mateo, Sede Principal">
+              <defs>
+                <linearGradient id="roadGrad" x1="0" y1="0" x2="560" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#25160c"/>
+                  <stop offset="100%" stop-color="#321d10"/>
+                </linearGradient>
+                <radialGradient id="standHalo" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#f5b800" stop-opacity="0.45"/>
+                  <stop offset="100%" stop-color="#f5b800" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="beamGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#ffdf6b" stop-opacity="0.48"/>
+                  <stop offset="100%" stop-color="#ffdf6b" stop-opacity="0"/>
+                </linearGradient>
+              <mask id="trailMask" maskUnits="userSpaceOnUse" x="0" y="0" width="560" height="320">
+                  <path id="arrival-route" d="M 42 262 H 138 Q 150 262 150 250 V 188 Q 150 176 162 176 H 430" stroke="#ffffff" stroke-width="10" stroke-linejoin="round" fill="none"/>
+                </mask>
+              </defs>
+
+              <!-- ESCENARIO URBANO: vista superior de un barrio ordenado (calles negras, líneas amarillas, manzanas) -->
+              <g id="arrival-city">
+                <!-- Parcela del colegio -->
+                <rect x="404" y="-12" width="152" height="172" rx="10" fill="#22140a" stroke="#3b2514" stroke-width="1.2"/>
+                <!-- Manzanas con casas y edificios -->
+                <rect x="8" y="-12" width="123" height="165" rx="8" fill="#2a190d" stroke="#3d2714" stroke-width="1.2"/><rect x="14.0" y="-6.0" width="53.5" height="153.0" rx="4" fill="#4b2f1a"/><rect x="23.2" y="3.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="37.2" y="3.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="51.2" y="3.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="23.2" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="37.2" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="51.2" y="19.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="23.2" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="37.2" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="51.2" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="23.2" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="37.2" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="51.2" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="23.2" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="37.2" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="51.2" y="67.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="23.2" y="83.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="37.2" y="83.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="51.2" y="83.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="71.5" y="-6.0" width="53.5" height="153.0" rx="4" fill="#4b2f1a"/><rect x="80.8" y="3.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="94.8" y="3.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="108.8" y="3.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="80.8" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="94.8" y="19.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="108.8" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="80.8" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="94.8" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="108.8" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="80.8" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="94.8" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="108.8" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="80.8" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="94.8" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="108.8" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="80.8" y="83.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="94.8" y="83.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="108.8" y="83.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="169" y="-12" width="102" height="165" rx="8" fill="#2a190d" stroke="#3d2714" stroke-width="1.2"/><rect x="175.0" y="-6.0" width="43.0" height="153.0" rx="4" fill="#4b2f1a"/><rect x="186.0" y="3.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="200.0" y="3.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="186.0" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="200.0" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="186.0" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="200.0" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="186.0" y="51.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="200.0" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="186.0" y="67.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="200.0" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="186.0" y="83.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="200.0" y="83.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="222.0" y="-6.0" width="43.0" height="153.0" rx="4" fill="#4b2f1a"/><rect x="233.0" y="3.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="247.0" y="3.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="233.0" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="247.0" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="233.0" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="247.0" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="233.0" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="247.0" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="233.0" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="247.0" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="233.0" y="83.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="247.0" y="83.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="309" y="-12" width="83" height="165" rx="8" fill="#2a190d" stroke="#3d2714" stroke-width="1.2"/><rect x="315.0" y="-6.0" width="71.0" height="153.0" rx="4" fill="#4b2f1a"/><rect x="326.0" y="3.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="340.0" y="3.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="354.0" y="3.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="368.0" y="3.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="326.0" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="340.0" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="354.0" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="368.0" y="19.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="326.0" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="340.0" y="35.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="354.0" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="368.0" y="35.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="326.0" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="340.0" y="51.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="354.0" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="368.0" y="51.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="326.0" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="340.0" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="354.0" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="368.0" y="67.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="326.0" y="83.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="340.0" y="83.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="354.0" y="83.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="368.0" y="83.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="8" y="197" width="123" height="45" rx="8" fill="#2a190d" stroke="#3d2714" stroke-width="1.2"/><rect x="14.0" y="203.0" width="53.5" height="33.0" rx="4" fill="#4b2f1a"/><rect x="14.0" y="203.0" width="53.5" height="7" rx="3" fill="#5c3b22"/><rect x="23.2" y="216.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="37.2" y="216.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="51.2" y="216.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="71.5" y="203.0" width="53.5" height="33.0" rx="4" fill="#4b2f1a"/><rect x="71.5" y="203.0" width="53.5" height="7" rx="3" fill="#5c3b22"/><rect x="80.8" y="216.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="94.8" y="216.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="108.8" y="216.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="169" y="197" width="102" height="45" rx="8" fill="#2a190d" stroke="#3d2714" stroke-width="1.2"/><rect x="175.0" y="203.0" width="43.0" height="33.0" rx="4" fill="#4b2f1a"/><rect x="175.0" y="203.0" width="43.0" height="7" rx="3" fill="#5c3b22"/><rect x="186.0" y="216.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="200.0" y="216.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="222.0" y="203.0" width="43.0" height="33.0" rx="4" fill="#4b2f1a"/><rect x="222.0" y="203.0" width="43.0" height="7" rx="3" fill="#5c3b22"/><rect x="233.0" y="216.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="247.0" y="216.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="309" y="197" width="83" height="45" rx="8" fill="#2a190d" stroke="#3d2714" stroke-width="1.2"/><rect x="315.0" y="203.0" width="71.0" height="33.0" rx="4" fill="#4b2f1a"/><rect x="315.0" y="203.0" width="71.0" height="7" rx="3" fill="#5c3b22"/><rect x="326.0" y="216.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="340.0" y="216.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="354.0" y="216.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="368.0" y="216.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="8" y="273" width="123" height="60" rx="8" fill="#2a190d" stroke="#3d2714" stroke-width="1.2"/><rect x="14.0" y="279.0" width="53.5" height="48.0" rx="4" fill="#4b2f1a"/><rect x="14.0" y="279.0" width="53.5" height="7" rx="3" fill="#5c3b22"/><rect x="23.2" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="37.2" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="51.2" y="292.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="23.2" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="37.2" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="51.2" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="71.5" y="279.0" width="53.5" height="48.0" rx="4" fill="#4b2f1a"/><rect x="71.5" y="279.0" width="53.5" height="7" rx="3" fill="#5c3b22"/><rect x="80.8" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="94.8" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="108.8" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="80.8" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="94.8" y="308.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="108.8" y="308.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="169" y="273" width="102" height="60" rx="8" fill="#2a190d" stroke="#3d2714" stroke-width="1.2"/><rect x="175.0" y="279.0" width="43.0" height="48.0" rx="4" fill="#4b2f1a"/><rect x="175.0" y="279.0" width="43.0" height="7" rx="3" fill="#5c3b22"/><rect x="186.0" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="200.0" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="186.0" y="308.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="200.0" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="222.0" y="279.0" width="43.0" height="48.0" rx="4" fill="#4b2f1a"/><rect x="222.0" y="279.0" width="43.0" height="7" rx="3" fill="#5c3b22"/><rect x="233.0" y="292.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="247.0" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="233.0" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="247.0" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="309" y="273" width="248" height="60" rx="8" fill="#2a190d" stroke="#3d2714" stroke-width="1.2"/><rect x="315.0" y="279.0" width="76.0" height="48.0" rx="4" fill="#4b2f1a"/><rect x="315.0" y="279.0" width="76.0" height="7" rx="3" fill="#5c3b22"/><rect x="328.5" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="342.5" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="356.5" y="292.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="370.5" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="328.5" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="342.5" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="356.5" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="370.5" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="395.0" y="279.0" width="76.0" height="48.0" rx="4" fill="#4b2f1a"/><rect x="395.0" y="279.0" width="76.0" height="7" rx="3" fill="#5c3b22"/><rect x="408.5" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="422.5" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="436.5" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="450.5" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="408.5" y="308.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="422.5" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="436.5" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="450.5" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="475.0" y="279.0" width="76.0" height="48.0" rx="4" fill="#4b2f1a"/><rect x="475.0" y="279.0" width="76.0" height="7" rx="3" fill="#5c3b22"/><rect x="488.5" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="502.5" y="292.0" width="7" height="6" rx="1.2" fill="#e0b25a" opacity="0.95"/><rect x="516.5" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="530.5" y="292.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="488.5" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="502.5" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="516.5" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/><rect x="530.5" y="308.0" width="7" height="6" rx="1.2" fill="#6b4a2c" opacity="0.85"/>
+                <!-- Calles -->
+                <g fill="#0b0806">
+                  <rect x="-5" y="165" width="455" height="22" rx="4"/>
+                  <rect x="-5" y="251" width="570" height="22"/>
+                  <rect x="139" y="-5" width="22" height="330"/>
+                  <rect x="289" y="-5" width="22" height="330"/>
+                </g>
+                <!-- Líneas discontinuas amarillas -->
+                <g stroke="#a8832a" stroke-opacity="0.75" stroke-width="1.6" stroke-dasharray="9 8">
+                  <line x1="-5" y1="176" x2="139" y2="176"/><line x1="161" y1="176" x2="289" y2="176"/><line x1="311" y1="176" x2="450" y2="176"/><line x1="-5" y1="262" x2="139" y2="262"/><line x1="161" y1="262" x2="289" y2="262"/><line x1="311" y1="262" x2="565" y2="262"/><line x1="150" y1="-5" x2="150" y2="165"/><line x1="150" y1="187" x2="150" y2="251"/><line x1="150" y1="273" x2="150" y2="330"/><line x1="300" y1="-5" x2="300" y2="165"/><line x1="300" y1="187" x2="300" y2="251"/><line x1="300" y1="273" x2="300" y2="330"/>
+                </g>
+                <!-- Zonas verdes -->
+                <circle cx="132" cy="152" r="6" fill="#2f7a26"/><circle cx="133.6" cy="150.4" r="3.4" fill="#3f9a33"/><circle cx="170" cy="198" r="6" fill="#2f7a26"/><circle cx="171.6" cy="196.4" r="3.4" fill="#3f9a33"/><circle cx="272" cy="241" r="6" fill="#2f7a26"/><circle cx="273.6" cy="239.4" r="3.4" fill="#3f9a33"/><circle cx="310" cy="152" r="6" fill="#2f7a26"/><circle cx="311.6" cy="150.4" r="3.4" fill="#3f9a33"/><circle cx="132" cy="275" r="6" fill="#2f7a26"/><circle cx="133.6" cy="273.4" r="3.4" fill="#3f9a33"/><circle cx="393" cy="199" r="6" fill="#2f7a26"/><circle cx="394.6" cy="197.4" r="3.4" fill="#3f9a33"/><circle cx="418" cy="228" r="6" fill="#2f7a26"/><circle cx="419.6" cy="226.4" r="3.4" fill="#3f9a33"/><circle cx="544" cy="232" r="6" fill="#2f7a26"/><circle cx="545.6" cy="230.4" r="3.4" fill="#3f9a33"/>
+              </g>
+
+              <!-- Ruta punteada (tenue = recorrido completo; brillante = tramo ya recorrido) -->
+              <path d="M 42 262 H 138 Q 150 262 150 250 V 188 Q 150 176 162 176 H 430" stroke="#f5b800" stroke-opacity="0.3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 8"/>
+              <g style="filter: drop-shadow(0 0 3px rgba(245,184,0,0.65));">
+                <path d="M 42 262 H 138 Q 150 262 150 250 V 188 Q 150 176 162 176 H 430" stroke="#f5b800" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 8" mask="url(#trailMask)"/>
+              </g>
+
+              <!-- Punto de partida -->
+              <g transform="translate(42, 262)">
+                <rect x="-21" y="-27" width="42" height="14" rx="7" fill="#0c0704" stroke="rgba(245,184,0,0.5)" stroke-width="1"/>
+                <text x="0" y="-17" text-anchor="middle" fill="rgba(244,240,234,0.85)" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="700">Salida</text>
+                <circle r="7" fill="#140b05" stroke="#f5b800" stroke-width="2.5"/>
+                <circle r="3" fill="#f5b800"/>
+              </g>
+
+              <!-- DESTINO: IE San Mateo (Sede Principal) + Stand Arepas Express -->
+              <g transform="translate(405, 52)">
+                <!-- Resplandor de llegada -->
+                <circle class="stand-glow" cx="72" cy="112" r="68" fill="url(#standHalo)"/>
+
+                <!-- Edificio / Entrada IE San Mateo -->
+                <rect x="12" y="18" width="122" height="68" rx="8" fill="#1d1109" stroke="rgba(255,255,255,0.22)" stroke-width="1.8"/>
+                <path d="M6 20 L73 2 L140 20 Z" fill="#2c180c" stroke="#f5b800" stroke-width="1.6" stroke-linejoin="round"/>
+                <!-- Letrero del colegio -->
+                <rect x="24" y="24" width="98" height="17" rx="4" fill="#0d0704" stroke="rgba(245,184,0,0.45)" stroke-width="1.2"/>
+                <text x="73" y="36" text-anchor="middle" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="8.5" font-weight="800" letter-spacing="0.03em">IE SAN MATEO</text>
+                <!-- Ventanas y pórtico -->
+                <rect x="26" y="48" width="18" height="14" rx="2" fill="rgba(245,184,0,0.18)" stroke="rgba(245,184,0,0.4)" stroke-width="1"/>
+                <rect x="102" y="48" width="18" height="14" rx="2" fill="rgba(245,184,0,0.18)" stroke="rgba(245,184,0,0.4)" stroke-width="1"/>
+
+                <!-- Stand de Arepas Express frente al colegio -->
+                <g transform="translate(26, 78)">
+                  <!-- Sombra base del stand -->
+                  <ellipse cx="48" cy="66" rx="52" ry="9" fill="rgba(0,0,0,0.55)"/>
+                  <!-- Postes laterales -->
+                  <line x1="12" y1="22" x2="12" y2="58" stroke="#f5b800" stroke-width="3"/>
+                  <line x1="84" y1="22" x2="84" y2="58" stroke="#f5b800" stroke-width="3"/>
+                  <!-- Mostrador del stand -->
+                  <rect x="8" y="40" width="80" height="24" rx="5" fill="#120904" stroke="#f5b800" stroke-width="2"/>
+                  <rect x="14" y="45" width="68" height="14" rx="3" fill="#f5b800"/>
+                  <text x="48" y="55" text-anchor="middle" fill="#110b04" font-family="'Permanent Marker', cursive, sans-serif" font-size="9.5">AREPAS EXPRESS</text>
+                  <!-- Arepa ilustrada sobre el mostrador -->
+                  <ellipse cx="48" cy="36" rx="10" ry="5.5" fill="#ffcb1f" stroke="#110b04" stroke-width="1.4"/>
+                  <path d="M41 36 C45 34, 51 34, 55 36" stroke="#4ca634" stroke-width="1.6" stroke-linecap="round"/>
+                  <!-- Toldo a franjas amarillas y rojas -->
+                  <path d="M4 22 L14 6 H82 L92 22 Z" fill="#f5b800" stroke="#110b04" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path d="M24 22 L29 6 H45 L43 22 Z" fill="#e31e24"/>
+                  <path d="M53 22 L55 6 H71 L76 22 Z" fill="#e31e24"/>
+                  <!-- Banderín superior -->
+                  <rect x="20" y="-10" width="56" height="14" rx="7" fill="#0c0704" stroke="#f5b800" stroke-width="1.5"/>
+                  <text x="48" y="-0.5" text-anchor="middle" fill="#ffcb1f" font-family="'Plus Jakarta Sans', sans-serif" font-size="7.5" font-weight="800">STAND</text>
+                </g>
+              </g>
+
+              <!-- VEHÍCULO Y CONDUCTOR PROPORCIONADOS (MOTO CON CONDUCTOR INTEGRADO) -->
+              <g id="arrival-rider" transform="translate(42, 262)">
+                <!-- Sombra proyectada sobre la vía -->
+                <ellipse cx="0" cy="14" rx="29" ry="5.5" fill="rgba(0,0,0,0.6)"/>
+
+                <!-- Haz de luz delantero -->
+                <path d="M 24 -9 L 58 -19 L 58 3 Z" fill="url(#beamGrad)"/>
+
+                <!-- Rueda trasera circular con llanta, rin y radios giratorios -->
+                <g transform="translate(-17, 3)">
+                  <circle r="10.5" fill="#100b08" stroke="#2c221b" stroke-width="2.5"/>
+                  <circle r="7" fill="none" stroke="#f5b800" stroke-width="1.6"/>
+                  <g class="js-wheel">
+                    <line x1="-6.5" y1="0" x2="6.5" y2="0" stroke="#f5b800" stroke-width="1.3"/>
+                    <line x1="0" y1="-6.5" x2="0" y2="6.5" stroke="#f5b800" stroke-width="1.3"/>
+                    <line x1="-4.6" y1="-4.6" x2="4.6" y2="4.6" stroke="#f5b800" stroke-width="1.1"/>
+                    <line x1="-4.6" y1="4.6" x2="4.6" y2="-4.6" stroke="#f5b800" stroke-width="1.1"/>
+                  </g>
+                  <circle r="2.3" fill="#ffffff"/>
+                </g>
+
+                <!-- Rueda delantera circular con llanta, rin y radios giratorios -->
+                <g transform="translate(18, 3)">
+                  <circle r="10.5" fill="#100b08" stroke="#2c221b" stroke-width="2.5"/>
+                  <circle r="7" fill="none" stroke="#f5b800" stroke-width="1.6"/>
+                  <g class="js-wheel">
+                    <line x1="-6.5" y1="0" x2="6.5" y2="0" stroke="#f5b800" stroke-width="1.3"/>
+                    <line x1="0" y1="-6.5" x2="0" y2="6.5" stroke="#f5b800" stroke-width="1.3"/>
+                    <line x1="-4.6" y1="-4.6" x2="4.6" y2="4.6" stroke="#f5b800" stroke-width="1.1"/>
+                    <line x1="-4.6" y1="4.6" x2="4.6" y2="-4.6" stroke="#f5b800" stroke-width="1.1"/>
+                  </g>
+                  <circle r="2.3" fill="#ffffff"/>
+                </g>
+
+                <!-- Escape y basculante trasero -->
+                <path d="M -23 2 L -8 3" stroke="#9ca3af" stroke-width="3" stroke-linecap="round"/>
+
+                <!-- Chasis y carenado de la motocicleta -->
+                <path d="M -21 -3 C -17 -11, -7 -12, -1 -8 L 7 -2 L 13 -16 L 21 -14 L 16 1 L -8 2 Z" fill="#f5b800" stroke="#110b04" stroke-width="1.5" stroke-linejoin="round"/>
+                <!-- Guardabarros delantero -->
+                <path d="M 11 -5 C 16 -10, 23 -9, 26 -4" stroke="#e31e24" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <!-- Horquilla delantera y manubrio -->
+                <line x1="18" y1="3" x2="11" y2="-19" stroke="#e5e7eb" stroke-width="2.6" stroke-linecap="round"/>
+                <path d="M 7 -20 L 13 -19" stroke="#110b04" stroke-width="2.8" stroke-linecap="round"/>
+                <!-- Faro delantero -->
+                <ellipse cx="20" cy="-11" rx="2.6" ry="3.4" fill="#fff9db" stroke="#110b04" stroke-width="1.2"/>
+
+                <!-- Asiento ergonómico -->
+                <path d="M -15 -10 Q -6 -12, 1 -9 L -1 -5 L -16 -6 Z" fill="#18120e" stroke="#110b04" stroke-width="1.2"/>
+
+                <!-- Caja térmica de Arepas Express en la parrilla trasera -->
+                <rect x="-27" y="-23" width="13" height="12" rx="2.5" fill="#e31e24" stroke="#ffffff" stroke-width="1.3"/>
+                <line x1="-27" y1="-17" x2="-14" y2="-17" stroke="#f5b800" stroke-width="2"/>
+
+                <!-- CONDUCTOR SENTADO DE FORMA NATURAL -->
+                <!-- Pierna y pie apoyados en el posapiés -->
+                <path d="M -6 -9 L 3 -2 L 1 4" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <path d="M 0 4 L 6 4" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round"/>
+                <!-- Torso inclinado ligeramente hacia el manubrio -->
+                <path d="M -10 -10 C -11 -18, -7 -25, -2 -25 C 2 -25, 3 -19, 1 -10 Z" fill="#110b04" stroke="#f5b800" stroke-width="1.4"/>
+                <!-- Franja amarilla en la chaqueta -->
+                <path d="M -8 -18 L 0 -17" stroke="#f5b800" stroke-width="2.2" stroke-linecap="round"/>
+                <!-- Brazo integrado sujetando el manubrio -->
+                <path d="M -3 -22 L 4 -18 L 9 -19" stroke="#f5b800" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <circle cx="9.5" cy="-19" r="2" fill="#110b04"/>
+                <!-- Cabeza y casco proporcionado con visor -->
+                <circle cx="-2" cy="-31" r="6.8" fill="#f5b800" stroke="#110b04" stroke-width="1.5"/>
+                <path d="M 0 -33.5 C 4 -33.5, 5.5 -31, 4.8 -28.5 L 0 -28.5 Z" fill="#110b04"/>
+                <path d="M 1 -32.2 L 4 -31" stroke="#ffffff" stroke-width="1" stroke-linecap="round"/>
+              </g>
+            </svg>
+
+            <button type="button" class="arrival-replay" id="arrival-replay" aria-label="Repetir animación" title="Repetir animación">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+            </button>
+
+            <!-- Mensaje final de llegada -->
+            <div class="arrival-badge is-arrived" id="arrival-badge" role="status" aria-live="polite">
+              <span class="arrival-badge__dot" aria-hidden="true"></span>
+              <span>¡Llegaste al stand de Arepas Express! — IE San Mateo</span>
+            </div>
+          </div>
+          <p class="stand__cap"><span>Ilustración decorativa de un barrio; no es una ruta real. Usa «Cómo llegar» para la ruta en Google Maps.</span></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="sec" id="proyecto" aria-labelledby="inst-t">
+    <div class="sec__in school">
+      <div class="school__head">
+        <div class="inst__logo reveal reveal--scale"><img src="https://i.postimg.cc/FHPvmjLv/images-removebg-preview.png" alt="Logo de la Institución Educativa San Mateo" width="190" height="190" loading="lazy" referrerpolicy="no-referrer"></div>
+        <div>
+          <span class="eyebrow reveal">Presentación escolar</span>
+          <h2 class="sec__title reveal" id="inst-t" style="--d:.08s">Institución Educativa <b>San Mateo</b></h2>
+          <p class="sec__lead reveal" style="--d:.16s">Arepas Express es nuestro proyecto escolar del grado 11-02: una propuesta de arepas, salsas y bebidas hecha con dedicación por el equipo que ves a continuación.</p>
+        </div>
+        <img class="school__arepa reveal reveal--scale" src="https://i.postimg.cc/cH6Z2QVs/arepa-mixta.webp" alt="Arepa mixta con carne, pollo, vegetales y queso derretido" width="400" height="300" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+      </div>
+      <div class="school__facts">
+        <div class="reveal"><small>Grado</small><strong>11-02</strong></div>
+        <div class="reveal" style="--d:.08s"><small>Profesor</small><strong>Wilfrido Leyton</strong></div>
+        <div class="reveal" style="--d:.16s"><small>Proyecto</small><strong>Arepas Express</strong></div>
+      </div>
+      <h3 class="inst__h reveal">Integrantes</h3>
+      <ul class="members"><li class="member reveal" style="--d:0.20s"><span class="member__i" aria-hidden="true">J</span>Julio Díaz</li><li class="member reveal" style="--d:0.26s"><span class="member__i" aria-hidden="true">D</span>Dilan Rodríguez</li><li class="member reveal" style="--d:0.32s"><span class="member__i" aria-hidden="true">D</span>Diego Arrieta</li><li class="member reveal" style="--d:0.38s"><span class="member__i" aria-hidden="true">M</span>Mateo Anaya</li><li class="member reveal" style="--d:0.44s"><span class="member__i" aria-hidden="true">I</span>Isaac Mattar</li><li class="member reveal" style="--d:0.50s"><span class="member__i" aria-hidden="true">J</span>Jesús Coronel</li></ul>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <div class="site-foot__in">
+      <div><strong class="site-foot__brand">Arepas Express</strong><p>El sabor que te mueve.</p></div>
+      <a class="btn-menu site-foot__wa" href="https://wa.me/573113562158" target="_blank" rel="noopener">WhatsApp +57 311 3562158</a>
+      <p class="site-foot__small">Arepas Express · Proyecto escolar · I.E. San Mateo · Grado 11-02</p>
+    </div>
+  </footer>
+
+
+  <a class="wa-fab" href="https://wa.me/573113562158" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp al +57 311 3562158 (se abre en una pestaña nueva)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+  <button type="button" class="cart-btn cart-fab" id="cart-fab" aria-label="Abrir carrito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1.5"/><circle cx="19" cy="21" r="1.5"/><path d="M2 3h3l2.68 12.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><i class="js-count" hidden>0</i></button>
+  <div class="cart__bk" id="cart-bk"></div>
+  <aside class="cart" id="cart" aria-label="Carrito de compras" aria-hidden="true">
+    <div class="cart__head"><span>Tu pedido</span><button type="button" class="cart__x" id="cart-x" aria-label="Cerrar carrito">×</button></div>
+    <div class="cart__sum" id="cart-sum"><button type="button" class="sum__t" id="sum-t" aria-expanded="true" aria-controls="cart-list"><span id="sum-txt">0 productos · Total $0</span><i aria-hidden="true">▾</i></button><ul class="cart__list" id="cart-list"><li class="cart__empty" id="cart-empty">Tu carrito está vacío.<br>Agrega tus arepas desde el menú.</li></ul></div>
+    <div class="cart__foot">
+      <div class="co">
+      <div class="field" id="name-field">
+        <label class="field__lbl" for="cust-name">Nombre del cliente</label>
+        <input class="field__in" id="cust-name" name="nombre" type="text" autocomplete="name" autocapitalize="words" enterkeyhint="done" maxlength="60" placeholder="Escribe tu nombre" aria-required="true" aria-describedby="name-msg">
+        <div class="field__msg" id="name-msg" role="alert"><span id="name-msg-t"></span></div>
+      </div>
+      <div class="co__b">
+        <div class="co__h">¿Cómo deseas pagar?</div>
+        <div class="pay" id="pay" role="radiogroup" aria-label="Método de pago">
+          <button type="button" class="pay__c" role="radio" aria-checked="false" data-pay="nequi"><img class="nq-img" id="nq-img" src="https://i.postimg.cc/yx7LdHzk/NEQUI.png" alt="Logo Nequi" referrerpolicy="no-referrer"><span>Nequi</span></button>
+          <button type="button" class="pay__c" role="radio" aria-checked="false" data-pay="efectivo"><span aria-hidden="true">💵</span><span>Efectivo</span></button>
+        </div>
+        <div class="co__msg" id="pay-msg" role="alert"></div>
+        <div id="nq-box" hidden><p class="co__hint" id="nq-txt">Pagas con Nequi; te confirmamos el pago por WhatsApp.</p></div>
+        <div id="cash-box" hidden>
+          <span class="field__lbl" id="cash-l">¿Con cuánto vas a pagar?</span>
+          <div class="chips" id="chips" role="radiogroup" aria-labelledby="cash-l"></div>
+          <div class="field" id="cash-other" hidden style="margin:.5rem 0 0"><input class="field__in" id="cash-in" type="text" inputmode="numeric" autocomplete="off" placeholder="Escribe el valor, ej. 15.000" aria-label="Otro valor con el que vas a pagar"></div>
+          <div class="co__msg" id="cash-msg" role="alert"></div>
+          <div class="change" id="change" hidden><span>Tu cambio</span><b id="change-v">$0</b></div>
+        </div>
+      </div>
+      <div class="co__b">
+        <div class="co__h">¿Dónde te entregamos tu pedido?</div>
+        <button type="button" class="gps" id="gps-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span id="gps-t">Usar mi ubicación actual</span></button>
+        <div class="co__msg" id="gps-st" role="status"></div>
+        <iframe class="mini" id="geo-map" title="Tu ubicación en el mapa" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
+        <button type="button" class="co__link" id="gps-rm" hidden>Quitar ubicación</button>
+        <div class="co__g">
+          <div class="field" id="addr-f"><label class="field__lbl" for="addr">Dirección</label><input class="field__in" id="addr" type="text" autocomplete="street-address" maxlength="120" placeholder="Calle, carrera, casa, manzana, lote…"><div class="field__msg" role="alert"><span></span></div></div>
+          <div class="field" id="barrio-f"><label class="field__lbl" for="barrio">Barrio</label><input class="field__in" id="barrio" type="text" autocomplete="address-level3" maxlength="60" placeholder="Ej. San Mateo"><div class="field__msg" role="alert"><span></span></div></div>
+        </div>
+        <div class="field" style="margin-bottom:0"><label class="field__lbl" for="info">Referencias (opcional)</label><input class="field__in" id="info" type="text" maxlength="140" placeholder="Casa de reja negra, frente a una tienda…"></div>
+      </div>
+    </div>
+    <div class="cart__bar">
+      <div class="cart__total"><span>Total</span><span id="cart-total">$0 COP</span></div>
+      <a class="btn-menu btn-wa" id="wa" href="#" target="_blank" rel="noopener" aria-disabled="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <span>Pedir por WhatsApp</span>
+      </a></div>
+      <p class="cart__note">Se abrirá WhatsApp con tu pedido listo para que lo revises y lo envíes tú.</p>
+    </div>
+  </aside>
+
+  <!-- Notificación discreta para el botón de pedido -->
+  <div class="order-toast" id="order-toast" role="status" aria-live="polite">
+    <div class="order-toast__title">Carrito</div>
+    <p id="toast-msg"></p>
+  </div>
+
+  <!-- Sonido: música ambiental (arranca sola al cargar; si el navegador lo bloquea, con la primera interacción) + efectos, cada uno con su propio control -->
+  <div class="music" id="music" role="group" aria-label="Sonido">
+    <button type="button" class="music__btn" id="music-play" aria-pressed="false" aria-label="Activar música" title="Música">
+      <svg class="i-vol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+      <svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m16 9 5 6"/><path d="m21 9-5 6"/></svg>
+    </button>
+    <span class="music__eq" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="music__hint">Toca para activar</span>
+    <span class="music__sep" aria-hidden="true"></span>
+    <button type="button" class="music__btn" id="sfx-toggle" aria-pressed="true" aria-label="Silenciar efectos de sonido" title="Efectos de sonido">
+      <svg class="i-sfx-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+      <svg class="i-sfx-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="m3 3 18 18"/></svg>
+    </button>
+  </div>
+  <audio id="bg-music" loop preload="none" playsinline></audio>
+  <!-- ========================================================================
+       SCRIPTS NO BLOQUEANTES (MENÚ MÓVIL + VIMEO AUTOPLAY MÓVIL/PC)
+       ======================================================================== -->
+  <script src="https://player.vimeo.com/api/player.js" async></script>
+  <script>
+    (function () {
+      // Gancho de efectos de sonido (el motor se crea más abajo; si no existe, no hace nada)
+      var SFX = null;
+      function sfx(n) { if (SFX) SFX.play(n); }
+
+      // 1. Menú Hamburguesa Móvil
+      var toggleBtn = document.getElementById('menu-toggle-btn');
+      var drawer = document.getElementById('mobile-drawer');
+      var backdrop = document.getElementById('drawer-backdrop');
+      var drawerLinks = drawer ? drawer.querySelectorAll('a') : [];
+
+      function setMenuState(isOpen) {
+        if (!toggleBtn || !drawer || !backdrop) return;
+        if (drawer.classList.contains('is-open') !== isOpen) sfx(isOpen ? 'open' : 'close');
+        toggleBtn.setAttribute('aria-expanded', String(isOpen));
+        drawer.setAttribute('aria-hidden', String(!isOpen));
+        drawer.classList.toggle('is-open', isOpen);
+        backdrop.classList.toggle('is-open', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      }
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function () {
+          var isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+          setMenuState(!isExpanded);
+        });
+      }
+
+      if (backdrop) {
+        backdrop.addEventListener('click', function () {
+          setMenuState(false);
+        });
+      }
+
+      drawerLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          setMenuState(false);
+        });
+      });
+
+      // 2. Menú, carrito y pedido por WhatsApp
+      var $ = function (id) { return document.getElementById(id); };
+      var WA_NUMBER = '573113562158';
+      var SAUCES = ['Salsa tártara', 'Salsa de piña', 'Salsa rosada', 'Salsa BBQ'];
+      var RM = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+      // Cada arepa usa su imagen por enlace directo (campo img del MENU).
+      var FOOD_IMG = 'https://i.postimg.cc/6pPvF3vp/fondo-arepas.png';
+      var ICONS = {
+        arepa: '<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><ellipse cx="24" cy="26" rx="18" ry="11" fill="currentColor" opacity=".9"/><path d="M10 24c8-6 20-6 28 0" stroke="#1a0f07" stroke-width="2.5" stroke-linecap="round"/><path d="M12 28c8-4 16-4 24 0" stroke="#4CA634" stroke-width="3" stroke-linecap="round"/></svg>',
+        drink: '<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M19 6h10v6l3 5v23a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V17l3-5V6Z" fill="currentColor" opacity=".9"/><rect x="16" y="22" width="16" height="10" fill="#E31E24"/></svg>'
+      };
+      var MENU = [
+        { id: 'queso', n: 'Arepa de queso', p: 5000, d: 'Arepa rellena de queso derretido. Incluye una salsa de la casa a tu elección.', s: 1, img: 'https://i.postimg.cc/xCqYhKW9/arepa-queso.webp', ico: 'arepa' },
+        { id: 'pollo', n: 'Arepa de pollo', p: 7000, d: 'Arepa con pollo desmechado, vegetales y queso. Incluye una salsa de la casa a tu elección.', s: 1, img: 'https://i.postimg.cc/B6tskxdn/arepa-pollo.webp', ico: 'arepa' },
+        { id: 'carne', n: 'Arepa de carne', p: 7000, d: 'Arepa con carne desmechada y vegetales. Incluye una salsa de la casa a tu elección.', s: 1, img: 'https://i.postimg.cc/C1dYXjWh/arepa-carne.webp', ico: 'arepa' },
+        { id: 'mixta', n: 'Arepa mixta / con todo', p: 10000, d: 'Relleno abundante de carne, pollo, vegetales y queso. Incluye una salsa de la casa a tu elección.', s: 1, img: 'https://i.postimg.cc/cH6Z2QVs/arepa-mixta.webp', ico: 'arepa' },
+        { id: 'gaseosa', n: 'Gaseosa', p: 1000, d: 'Para acompañar tu arepa.', s: 0, img: null, ico: 'drink' }
+      ];
+      var cart = [], uid = 0, lastQ = 0, lastTotal = 0;
+      var cartEl = $('cart'), bk = $('cart-bk'), listEl = $('cart-list'), emptyEl = $('cart-empty'), waBtn = $('wa');
+      var nameEl = $('cust-name'), nameField = $('name-field'), nameMsg = $('name-msg-t');
+      var toastEl = $('order-toast'), toastTimer = null, lastFocus = null;
+
+      function money(n) { return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' COP'; }
+      function moneyHTML(n) { return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '<small>COP</small>'; }
+      function salsas(l) { return l.s === null ? '' : (l.s || 'Sin salsa'); }
+      function sauceShort(s) { return s ? s.replace(/^Salsa (de )?/, '').replace(/^./, function (c) { return c.toUpperCase(); }) : 'Sin salsa'; }
+      function pop(el) { el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+      function store(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
+      function load(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }
+
+      // Miniatura con alternativa visual (si no hay imagen o falla la carga, nunca se ve una imagen rota)
+      function thumb(o, big) {
+        var has = !!o.img;
+        return '<span class="thumb' + (big ? ' thumb--lg' : '') + (has && o.ico === 'arepa' ? ' thumb--wide' : '') + (has ? '' : ' is-ph') + '">' + ICONS[o.ico || 'arepa'] +
+          (has ? '<img src="' + o.img + '" alt="" width="92" height="68" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : '') + '</span>';
+      }
+      document.addEventListener('error', function (e) {
+        var t = e.target;
+        if (t && t.tagName === 'IMG') { var w = t.closest('.thumb, .fig__frame'); if (w) w.classList.add('is-broken'); }
+      }, true);
+      var foodImg = $('food-img');
+      if (foodImg && foodImg.complete && foodImg.naturalWidth === 0 && foodImg.getAttribute('src')) foodImg.closest('.fig__frame').classList.add('is-broken');
+
+      function toast(msg) {
+        $('toast-msg').textContent = msg;
+        toastEl.classList.add('is-visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toastEl.classList.remove('is-visible'); }, 2200);
+      }
+
+      function setCart(open) {
+        if (cartEl.classList.contains('is-open') !== open) sfx(open ? 'open' : 'close');
+        if (open) { lastFocus = document.activeElement; clearTimeout(toastTimer); toastEl.classList.remove('is-visible'); }
+        cartEl.classList.toggle('is-open', open);
+        bk.classList.toggle('is-open', open);
+        cartEl.setAttribute('aria-hidden', String(!open));
+        document.body.style.overflow = open ? 'hidden' : '';
+        if (open) $('cart-x').focus({ preventScroll: true });
+        else if (lastFocus && lastFocus.focus) { lastFocus.focus({ preventScroll: true }); lastFocus = null; }
+      }
+
+      // ---- Líneas del carrito: se crean, actualizan y retiran de forma individual (sin repintar todo) ----
+      function buildLine(l) {
+        var li = document.createElement('li');
+        li.className = 'line';
+        li.dataset.u = l.uid;
+        var edit = '';
+        if (l.s !== null) {
+          edit = '<div class="line__s line__sa"><b>' + salsas(l) + '</b><button type="button" class="line__edit" data-a="sauce" aria-expanded="false">Cambiar</button></div>' +
+            '<div class="line__sauces" role="radiogroup" aria-label="Salsa (elige una)" hidden>' +
+            [''].concat(SAUCES).map(function (s) {
+              return '<button type="button" class="sauce" role="radio" data-s="' + s + '" aria-checked="' + (s === l.s) + '">' + sauceShort(s) + '</button>';
+            }).join('') + '</div>';
+        }
+        li.innerHTML = thumb(l, false) +
+          '<div class="line__b"><div class="line__n"></div>' + edit +
+          '<div class="line__s">' + money(l.p) + ' c/u</div>' +
+          '<div class="qty"><button type="button" class="rb" data-a="dec" aria-label="Quitar una unidad">−</button><b class="qn">' + l.q +
+          '</b><button type="button" class="rb" data-a="inc" aria-label="Agregar una unidad">+</button>' +
+          '<button type="button" class="qty__del" data-a="del">Eliminar</button></div></div>' +
+          '<div class="line__sub">' + money(l.p * l.q) + '</div>';
+        li.querySelector('.line__n').textContent = l.n;
+        return li;
+      }
+      function updateLine(li, l) {
+        var qn = li.querySelector('.qn'), sub = li.querySelector('.line__sub');
+        if (+qn.textContent !== l.q) { qn.textContent = l.q; sub.textContent = money(l.p * l.q); pop(qn); pop(sub); }
+        if (l.s !== null) {
+          li.querySelector('.line__sa b').textContent = salsas(l);
+          [].forEach.call(li.querySelectorAll('.line__sauces .sauce'), function (x) { x.setAttribute('aria-checked', String(x.dataset.s === l.s)); });
+        }
+      }
+      function syncEmpty() { emptyEl.hidden = !!(cart.length || listEl.querySelector('.line')); }
+      function leave(li) {
+        if (li.classList.contains('leaving')) return;
+        var done = function () { if (li.parentNode) li.parentNode.removeChild(li); syncEmpty(); };
+        if (RM) { done(); return; }
+        li.style.height = li.offsetHeight + 'px';
+        void li.offsetHeight;
+        li.classList.add('leaving');
+        var t = setTimeout(done, 450);
+        li.addEventListener('transitionend', function h(e) {
+          if (e.target === li && e.propertyName === 'height') { clearTimeout(t); li.removeEventListener('transitionend', h); done(); }
+        });
+      }
+      function renderList() {
+        var seen = {};
+        cart.forEach(function (l) {
+          seen[l.uid] = 1;
+          var li = listEl.querySelector('.line[data-u="' + l.uid + '"]');
+          if (!li) listEl.appendChild(buildLine(l)); else updateLine(li, l);
+        });
+        [].forEach.call(listEl.querySelectorAll('.line:not(.leaving)'), function (li) { if (!seen[li.dataset.u]) leave(li); });
+        syncEmpty();
+      }
+
+      // ---- Nombre del cliente y mensaje de WhatsApp ----
+      function cleanName(v) { return String(v || '').replace(/[*_~`]/g, '').replace(/\s+/g, ' ').trim(); }
+      function clearNameErr() {
+        nameField.classList.remove('is-err');
+        nameEl.removeAttribute('aria-invalid');
+        nameMsg.textContent = '';
+      }
+      function showNameErr() {
+        nameField.classList.remove('is-err'); void nameField.offsetWidth;
+        nameMsg.textContent = 'Escribe tu nombre para poder generar el pedido.';
+        nameField.classList.add('is-err');
+        nameEl.setAttribute('aria-invalid', 'true');
+        nameEl.focus();
+      }
+      nameEl.value = load('ae_name') || '';
+      nameEl.addEventListener('input', function () { clearNameErr(); store('ae_name', nameEl.value); updateWa(); });
+      nameEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') nameEl.blur(); });
+
+      function total() { return cart.reduce(function (t, l) { return t + l.q * l.p; }, 0); }
+      // Mensaje de pedido: todo sale del carrito real (productos, cantidades, salsa elegida y total).
+      var WA_LINE = '━━━━━━━━━━━━━━';
+      var WA_EMOJI = { queso: '🧀', pollo: '🍗', carne: '🥩', mixta: '🫓', gaseosa: '🥤' };
+      function plainMoney(n) { return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+      function waText(t) {
+        var L = ['🫓 *AREPAS EXPRESS*', '', '¡Hola! 👋 Quiero realizar el siguiente pedido:', '👤 Cliente: ' + cleanName(nameEl.value), '', WA_LINE, '', '🛒 *MI PEDIDO*', ''];
+        cart.forEach(function (l) {
+          L.push('• ' + (WA_EMOJI[l.id] ? WA_EMOJI[l.id] + ' ' : '') + l.n + ' × ' + l.q + ' — ' + plainMoney(l.p * l.q));
+          if (l.s) L.push('  Salsa: ' + sauceShort(l.s));   // solo si el cliente eligió una salsa
+          L.push('');
+        });
+        L.push(WA_LINE, '', '💰 *RESUMEN DEL PEDIDO*', '', '• Total: ' + plainMoney(t));
+        if (co.pay === 'nequi') L.push('', '💳 *MÉTODO DE PAGO*', '• Nequi');
+        else if (co.pay === 'efectivo') {
+          L.push('', '💳 *MÉTODO DE PAGO*', '• Efectivo');
+          if (co.mode && !cashErr()) L.push('• Pago con: ' + plainMoney(cashAmt()), '• Cambio: ' + plainMoney(cashAmt() - t));
+        }
+        var a = cleanName(addrEl.value), b = cleanName(barrioEl.value), i = cleanName(infoEl.value);
+        if (a || b || i || co.geo) {
+          L.push('', '📍 *DATOS DE ENTREGA*');
+          if (a) L.push('• Dirección: ' + a);
+          if (b) L.push('• Barrio: ' + b);
+          if (i) L.push('• Información adicional: ' + i);
+          if (co.geo) L.push('• Ubicación GPS: ' + mapsLink(co.geo));
+        }
+        L.push('', WA_LINE, '', '¡Muchas gracias! 😊 Quedo pendiente de la confirmación de mi pedido.');
+        return L.join('\n');
+      }
+      function waLink(t) {
+        return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(waText(t));   // codifica espacios, saltos de línea, emojis y símbolos
+      }
+      function updateWa() {
+        if (cart.length) { waBtn.href = waLink(total()); waBtn.removeAttribute('aria-disabled'); }
+        else { waBtn.href = '#'; waBtn.setAttribute('aria-disabled', 'true'); }
+      }
+
+      // ---- Checkout: pago, entrega, GPS ----
+      var NEQUI_NUMBER = '';   // Pon aquí el número Nequi cuando lo tengas (ej. '3001234567'). Vacío = no se muestra ninguno.
+      var NEQUI_LOGO = 'https://i.postimg.cc/yx7LdHzk/NEQUI.png';   // Logo oficial de Nequi proporcionado
+      var BILLS = [5000, 10000, 20000, 50000, 100000];
+      var co = { pay: '', mode: '', val: 0, geo: null };
+      var addrEl = $('addr'), barrioEl = $('barrio'), infoEl = $('info');
+      addrEl.value = load('ae_addr') || ''; barrioEl.value = load('ae_barrio') || ''; infoEl.value = load('ae_info') || '';
+      var nqi = $('nq-img');
+      if (nqi) {
+        nqi.onload = function () { nqi.hidden = false; };
+        nqi.onerror = function () { nqi.hidden = true; };
+        nqi.referrerPolicy = 'no-referrer';
+        if (nqi.getAttribute('src') !== NEQUI_LOGO) nqi.src = NEQUI_LOGO;
+      }
+      if (NEQUI_NUMBER) $('nq-txt').innerHTML = 'Nequi: <strong>' + NEQUI_NUMBER + '</strong>. Solo indicas que pagarás con Nequi; te confirmamos el pago por WhatsApp.';
+      function cashAmt() { return co.mode === 'exact' ? total() : (co.mode ? co.val : 0); }
+      function cashErr() {
+        var c = cashAmt(), t = total();
+        if (!co.mode) return 'Elige con cuánto vas a pagar.';
+        if (!c) return 'Escribe un valor válido.';
+        if (c < t) return 'El valor debe ser igual o mayor al total (' + plainMoney(t) + ').';
+        return '';
+      }
+      function fErr(id, msg) { var f = $(id); f.classList.remove('is-err'); void f.offsetWidth; f.querySelector('.field__msg span').textContent = msg; f.classList.add('is-err'); }
+      function fOk(id) { $(id).classList.remove('is-err'); }
+      function drawCash() {
+        var t = total(), h = '';
+        BILLS.forEach(function (b) {
+          h += '<button type="button" class="chip' + (b < t ? ' is-off' : '') + '" role="radio" data-v="' + b + '" aria-checked="' + (co.mode === 'chip' && co.val === b) + '"' + (b < t ? ' aria-disabled="true"' : '') + '>' + plainMoney(b) + '</button>';
+        });
+        h += '<button type="button" class="chip" role="radio" data-v="exact" aria-checked="' + (co.mode === 'exact') + '">Valor exacto</button>' +
+             '<button type="button" class="chip" role="radio" data-v="other" aria-checked="' + (co.mode === 'other') + '">Otro valor</button>';
+        $('chips').innerHTML = h;
+        $('cash-other').hidden = co.mode !== 'other';
+        var err = co.mode ? cashErr() : '';
+        $('cash-msg').textContent = err;
+        var ok = co.mode && !cashErr();
+        $('change').hidden = !ok;
+        if (ok) $('change-v').textContent = plainMoney(cashAmt() - t) + (cashAmt() === t ? ' (valor exacto)' : '');
+      }
+      function drawPay() {
+        [].forEach.call(document.querySelectorAll('.pay__c'), function (b) { b.setAttribute('aria-checked', String(b.dataset.pay === co.pay)); });
+        $('nq-box').hidden = co.pay !== 'nequi';
+        $('cash-box').hidden = co.pay !== 'efectivo';
+        if (co.pay) $('pay-msg').textContent = '';
+      }
+      function coRefresh() {
+        drawCash();
+        var q = 0; cart.forEach(function (l) { q += l.q; });
+        $('sum-txt').innerHTML = q + (q === 1 ? ' producto' : ' productos') + ' · Total <b>' + plainMoney(total()) + '</b>';
+      }
+      function setSum(o) { $('cart-sum').classList.toggle('is-closed', !o); $('sum-t').setAttribute('aria-expanded', String(o)); }
+      $('sum-t').addEventListener('click', function () { setSum($('sum-t').getAttribute('aria-expanded') !== 'true'); });
+      $('pay').addEventListener('click', function (e) {
+        var b = e.target.closest('.pay__c'); if (!b) return;
+        co.pay = b.dataset.pay; drawPay(); drawCash(); updateWa(); sfx('inc');
+      });
+      $('chips').addEventListener('click', function (e) {
+        var b = e.target.closest('.chip'); if (!b || b.classList.contains('is-off')) return;
+        var v = b.dataset.v;
+        if (v === 'exact') co.mode = 'exact';
+        else if (v === 'other') { co.mode = 'other'; co.val = +($('cash-in').value.replace(/\D/g, '')) || 0; }
+        else { co.mode = 'chip'; co.val = +v; }
+        drawCash(); updateWa();
+        if (v === 'other') $('cash-in').focus();
+      });
+      $('cash-in').addEventListener('input', function (e) {
+        var d = e.target.value.replace(/\D/g, '').slice(0, 7);
+        co.val = +d || 0; e.target.value = d ? d.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+        var err = cashErr(); $('cash-msg').textContent = d ? err : '';
+        $('change').hidden = !!err;
+        if (!err) $('change-v').textContent = plainMoney(cashAmt() - total());
+        updateWa();
+      });
+      [['addr', addrEl, 'ae_addr', 'addr-f'], ['barrio', barrioEl, 'ae_barrio', 'barrio-f'], ['info', infoEl, 'ae_info', null]].forEach(function (a) {
+        a[1].addEventListener('input', function () { store(a[2], a[1].value); if (a[3]) fOk(a[3]); updateWa(); });
+      });
+
+      // GPS real (API de geolocalización del navegador; el permiso se pide solo al pulsar el botón)
+      var gpsBtn = $('gps-btn'), gpsSt = $('gps-st');
+      function mapsLink(g) { return 'https://www.google.com/maps/search/?api=1&query=' + g.lat + ',' + g.lng; }
+      function gpsMsg(t, ok) { gpsSt.textContent = t; gpsSt.className = 'co__msg' + (ok ? ' co__ok' : ''); }
+      function gpsLoad(on) { gpsBtn.classList.toggle('is-load', on); gpsBtn.disabled = on; }
+      function gpsClear() { co.geo = null; $('geo-map').hidden = true; $('geo-map').removeAttribute('src'); $('gps-rm').hidden = true; $('gps-t').textContent = 'Usar mi ubicación actual'; gpsMsg(''); updateWa(); }
+      $('gps-rm').addEventListener('click', gpsClear);
+      gpsBtn.addEventListener('click', function () {
+        if (!navigator.geolocation) { gpsMsg('Tu navegador no admite ubicación. Escribe tu dirección manualmente.'); return; }
+        if (window.isSecureContext === false) { gpsMsg('La ubicación solo funciona en una página segura (HTTPS). Escribe tu dirección manualmente.'); return; }
+        gpsLoad(true); gpsMsg('Obteniendo tu ubicación…', true);
+        function ok(p) {
+          gpsLoad(false);
+          co.geo = { lat: +p.coords.latitude.toFixed(6), lng: +p.coords.longitude.toFixed(6) };
+          gpsMsg('Ubicación obtenida (precisión aprox. ±' + Math.round(p.coords.accuracy) + ' m). Completa tu dirección y barrio.', true);
+          var m = $('geo-map'); m.src = 'https://www.google.com/maps?q=' + co.geo.lat + ',' + co.geo.lng + '&z=17&hl=es&output=embed'; m.hidden = false;
+          $('gps-rm').hidden = false; $('gps-t').textContent = 'Actualizar mi ubicación'; updateWa();
+        }
+        function fail(e) {
+          gpsLoad(false); $('gps-t').textContent = 'Intentar de nuevo';
+          var tip = ' Si abriste la página desde WhatsApp, Instagram o Facebook, ábrela en Chrome o Safari.';
+          gpsMsg(e.code === 1 ? 'Permiso denegado. Actívalo para este sitio (candado de la barra de direcciones) o escribe tu dirección.' + tip :
+                 e.code === 3 ? 'Se agotó el tiempo. Intenta de nuevo con el GPS activado o escribe tu dirección.' :
+                 'No pudimos determinar tu ubicación. Activa el GPS y reintenta, o escribe tu dirección.' + tip);
+        }
+        function ask(hi) {   // 1.º alta precisión; si no hay señal, reintenta con precisión normal
+          navigator.geolocation.getCurrentPosition(ok, function (e) { if (hi && e.code !== 1) ask(false); else fail(e); },
+            { enableHighAccuracy: hi, timeout: hi ? 12000 : 15000, maximumAge: hi ? 0 : 60000 });
+        }
+        ask(true);
+      });
+
+      function coValidate() {
+        var bad = null;
+        if (!co.pay) { $('pay-msg').textContent = 'Elige cómo deseas pagar.'; bad = $('pay'); }
+        else if (co.pay === 'efectivo' && cashErr()) { drawCash(); $('cash-msg').textContent = cashErr(); bad = $('cash-box'); }
+        if (!cleanName(addrEl.value)) { fErr('addr-f', 'Escribe tu dirección.'); bad = bad || addrEl; }
+        if (!cleanName(barrioEl.value)) { fErr('barrio-f', 'Escribe tu barrio.'); bad = bad || barrioEl; }
+        if (bad) { bad.scrollIntoView({ block: 'center', behavior: RM ? 'auto' : 'smooth' }); if (bad.focus && bad.tagName === 'INPUT') bad.focus(); return false; }
+        return true;
+      }
+
+      function render() {
+        var q = 0, t = total();
+        cart.forEach(function (l) { q += l.q; });
+        renderList();
+        $('cart-total').textContent = money(t);
+        if (t !== lastTotal) pop($('cart-total'));
+        document.querySelectorAll('.js-count').forEach(function (c) {
+          c.textContent = q; c.hidden = !q;
+          if (q !== lastQ) { c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump'); }
+        });
+        lastQ = q; lastTotal = t;
+        updateWa();
+        coRefresh();
+      }
+
+      // ---- Menú ----
+      // Salsa: SIEMPRE una sola por arepa (botones de opción). Opcional: por defecto «Sin salsa».
+      $('menu-list').innerHTML = MENU.map(function (d, i) {
+        var ctrl = d.s ? '<span class="dish__lbl" id="sl-' + d.id + '">Salsa (opcional, elige una)</span>' +
+          '<div class="dish__sauces" role="radiogroup" aria-labelledby="sl-' + d.id + '">' +
+          [''].concat(SAUCES).map(function (s) {
+            return '<button type="button" class="sauce" role="radio" data-s="' + s + '" aria-checked="' + (s === '') + '">' + (s || 'Sin salsa') + '</button>';
+          }).join('') + '</div>' : '';
+        return '<article class="dish reveal" style="--d:' + (i * 0.07).toFixed(2) + 's" data-id="' + d.id + '">' +
+          '<div class="dish__th">' + thumb(d, true) + '</div>' +
+          '<div class="dish__head"><h3 class="dish__name">' + d.n + '</h3><span class="dish__lead" aria-hidden="true"></span><span class="dish__price">' + moneyHTML(d.p) + '</span></div>' +
+          '<p class="dish__desc">' + d.d + '</p>' +
+          '<div class="dish__ctrl">' + ctrl + '<button type="button" class="btn-menu btn-add" data-add><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Agregar al carrito</span></button></div></article>';
+      }).join('');
+
+      function flashAdded(b) {
+        var sp = b.querySelector('span');
+        clearTimeout(b._t);
+        b.classList.add('is-added'); sp.textContent = '¡Agregado!';
+        b._t = setTimeout(function () { b.classList.remove('is-added'); sp.textContent = 'Agregar al carrito'; }, 1200);
+      }
+
+      // Navegación con flechas dentro de un grupo de salsas (comportamiento estándar de botones de opción)
+      function arrowNav(e) {
+        var k = e.key, t = e.target;
+        if (k !== 'ArrowRight' && k !== 'ArrowDown' && k !== 'ArrowLeft' && k !== 'ArrowUp') return;
+        if (!t.classList || !t.classList.contains('sauce')) return;
+        var g = [].slice.call(t.parentNode.querySelectorAll('.sauce'));
+        var step = (k === 'ArrowRight' || k === 'ArrowDown') ? 1 : -1;
+        var n = g[(g.indexOf(t) + step + g.length) % g.length];
+        e.preventDefault(); n.focus(); n.click();
+      }
+
+      $('menu-list').addEventListener('keydown', arrowNav);
+      $('menu-list').addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        var row = b.closest('.dish'); if (!row) return;
+        if (b.classList.contains('sauce')) {
+          if (b.getAttribute('aria-checked') === 'true') return;
+          // Selección única: al elegir una, se desmarcan las demás de ESTA arepa (las otras arepas no se tocan)
+          [].forEach.call(row.querySelectorAll('.sauce'), function (x) { x.setAttribute('aria-checked', String(x === b)); });
+          sfx('sauce');
+          return;
+        }
+        if (b.hasAttribute('data-add')) {
+          var d = MENU.filter(function (x) { return x.id === row.dataset.id; })[0];
+          if (!d) return;
+          var sel = d.s ? row.querySelector('.sauce[aria-checked="true"]') : null;
+          var s = d.s ? (sel ? sel.dataset.s : '') : null;
+          var key = d.id + '|' + (s === null ? '' : s);
+          var l = cart.filter(function (x) { return x.key === key; })[0];
+          if (l) l.q++; else cart.push({ uid: ++uid, id: d.id, key: key, n: d.n, p: d.p, q: 1, s: s, img: d.img || null, ico: d.ico });
+          render();
+          flashAdded(b);
+          toast(d.n + ' agregado al carrito');
+          sfx('add');
+        }
+      });
+
+      // Cambiar la salsa de una línea del carrito (siempre una sola). Si ya existe otra línea igual, se fusionan.
+      function setLineSauce(l, val) {
+        var newKey = l.id + '|' + val;
+        var other = cart.filter(function (x) { return x !== l && x.key === newKey; })[0];
+        if (other) { other.q += l.q; cart.splice(cart.indexOf(l), 1); return true; }
+        l.s = val; l.key = newKey; return false;
+      }
+      function toggleEditor(li, open) {
+        var box = li.querySelector('.line__sauces'), btn = li.querySelector('.line__edit');
+        if (!box || !btn) return;
+        box.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+        btn.textContent = open ? 'Cerrar' : 'Cambiar';
+      }
+
+      listEl.addEventListener('keydown', arrowNav);
+      listEl.addEventListener('click', function (e) {
+        var li = e.target.closest('.line');
+        if (!li || li.classList.contains('leaving')) return;
+        var idx = -1;
+        cart.some(function (x, k) { if (String(x.uid) === li.dataset.u) { idx = k; return true; } return false; });
+        if (idx < 0) return;
+        var l = cart[idx];
+
+        var sb = e.target.closest('.sauce');
+        if (sb) {
+          var val = sb.dataset.s;
+          if (val === l.s) { toggleEditor(li, false); return; }
+          var merged = setLineSauce(l, val);
+          sfx('sauce');
+          render();
+          if (!merged) {
+            toggleEditor(li, false);
+            var eb = li.querySelector('.line__edit'); if (eb) eb.focus({ preventScroll: true });
+          }
+          return;
+        }
+
+        var b = e.target.closest('[data-a]'); if (!b) return;
+        var a = b.dataset.a;
+        if (a === 'sauce') {
+          var open = b.getAttribute('aria-expanded') !== 'true';
+          toggleEditor(li, open);
+          sfx(open ? 'open' : 'close');
+          return;
+        }
+        if (a === 'inc') { l.q++; sfx('inc'); }
+        else if (a === 'dec') { if (l.q - 1 < 1) { cart.splice(idx, 1); sfx('remove'); } else { l.q--; sfx('dec'); } }
+        else if (a === 'del') { cart.splice(idx, 1); sfx('remove'); }
+        else return;
+        render();
+      });
+
+      $('cart-x').onclick = bk.onclick = function () { setCart(false); };
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setCart(false); setMenuState(false); } });
+      document.querySelectorAll('.cart-btn').forEach(function (b) { b.addEventListener('click', function () { setCart(true); }); });
+
+      // Al pulsar «Pedir por WhatsApp»: exige el nombre y arma el mensaje con el estado actual del carrito
+      waBtn.addEventListener('click', function (e) {
+        if (waBtn.getAttribute('aria-disabled') === 'true') { e.preventDefault(); return; }
+        if (!cleanName(nameEl.value)) { e.preventDefault(); showNameErr(); return; }
+        if (!coValidate()) { e.preventDefault(); return; }
+        updateWa();
+        sfx('confirm');
+      });
+      $('btn-order-header').addEventListener('click', function () {
+        if (cart.length) setCart(true); else $('menu').scrollIntoView({ behavior: RM ? 'auto' : 'smooth' });
+      });
+      [$('btn-order-drawer'), $('nav-pedidos-link')].forEach(function (a) {
+        if (a) a.addEventListener('click', function (e) { e.preventDefault(); setCart(true); });
+      });
+
+      var fab = $('cart-fab');
+      function onScroll() { fab.classList.toggle('is-on', window.scrollY > window.innerHeight * 0.7); }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      render();
+
+      // ---- Animación ilustrada de llegada en moto al stand ----
+      (function () {
+        var route = $('arrival-route');
+        var rider = $('arrival-rider');
+        var badge = $('arrival-badge');
+        var stage = $('arrival-stage');
+        var replayBtn = $('arrival-replay');
+        if (!route || !rider || ! route.getTotalLength) return;
+
+        var wheels = rider.querySelectorAll('.js-wheel');
+        var totalLen = route.getTotalLength();
+        var animId = null;
+        var DURATION = 3400;
+
+        route.style.strokeDasharray = String(totalLen);
+        route.style.strokeDashoffset = '0';
+
+        function easeInOutCubic(t) {
+          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        function placeAt(progress) {
+          var len = progress * totalLen;
+          var pt = route.getPointAtLength(len);
+          var p1 = route.getPointAtLength(Math.max(0, len - 2));
+          var p2 = route.getPointAtLength(Math.min(totalLen, len + 2));
+          // Inclinación suave siguiendo la tangente de la curva
+          var angle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * (180 / Math.PI) * 0.55;
+          angle = Math.max(-10, Math.min(10, angle)); // en los giros rectos la moto solo se inclina levemente
+          if (progress > 0.92) {
+            angle *= (1 - progress) / 0.08; // Se nivela suavemente al frenar frente al stand
+          }
+          rider.setAttribute('transform', 'translate(' + pt.x.toFixed(2) + ',' + pt.y.toFixed(2) + ') rotate(' + angle.toFixed(2) + ')');
+          route.style.strokeDashoffset = String((1 - progress) * totalLen);
+          var spin = (progress * 1080) % 360;
+          for (var i = 0; i < wheels.length; i++) {
+            wheels[i].setAttribute('transform', 'rotate(' + spin.toFixed(1) + ')');
+          }
+        }
+
+        function runArrival() {
+          if (animId) cancelAnimationFrame(animId);
+          if (RM) {
+            placeAt(1);
+            if (badge) badge.classList.add('is-arrived');
+            if (stage) stage.classList.add('is-arrived');
+            return;
+          }
+          if (badge) badge.classList.remove('is-arrived');
+          if (stage) stage.classList.remove('is-arrived');
+          var start = null;
+          function step(ts) {
+            if (!start) start = ts;
+            var raw = Math.min(1, (ts - start) / DURATION);
+            var prog = easeInOutCubic(raw);
+            placeAt(prog);
+            if (raw < 1) {
+              animId = requestAnimationFrame(step);
+            } else {
+              animId = null;
+              if (badge) badge.classList.add('is-arrived');
+              if (stage) stage.classList.add('is-arrived');
+            }
+          }
+          animId = requestAnimationFrame(step);
+        }
+
+        // Posición final inicial por defecto y activación al entrar en vista
+        placeAt(1);
+        if (stage && window.IntersectionObserver) {
+          var seenArrival = false;
+          var obs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting && !seenArrival) {
+                seenArrival = true;
+                runArrival();
+              }
+            });
+          }, { threshold: 0.35 });
+          obs.observe(stage);
+        }
+
+        if (replayBtn) {
+          replayBtn.addEventListener('click', function () {
+            runArrival();
+          });
+        }
+      })();
+
+      // Aparición progresiva al hacer scroll (una sola vez por elemento)
+      var els = document.querySelectorAll('.reveal');
+      function show(el) {
+        var fin = function () { el.classList.add('rv-done'); };
+        el.addEventListener('transitionend', function h(e) {
+          if (e.target === el && e.propertyName === 'opacity') { el.removeEventListener('transitionend', h); fin(); }
+        });
+        setTimeout(fin, 2400);
+        el.classList.add('in');
+      }
+      if (window.IntersectionObserver) {
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (en) { if (en.isIntersecting) { show(en.target); io.unobserve(en.target); } });
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        els.forEach(function (el) { io.observe(el); });
+      } else {
+        els.forEach(function (el) { el.classList.add('in', 'rv-done'); });
+      }
+
+      // 2b. SONIDO — todo con Web Audio (sin bibliotecas ni archivos obligatorios, carga cero).
+      var AUDIO_SRC = '';
+      var MUSIC_VOL = 1.06;    // volumen de la música generada (presencia clara; un limitador evita saturar)
+      var FILE_VOL = 0.47;    // volumen si usas un archivo propio
+      var AC = window.AudioContext || window.webkitAudioContext;
+      var actx = null, master = null, onAudioState = null, MUSIC = null;
+      function getCtx() {
+        if (!AC) return null;
+        if (!actx) {
+          try { actx = new AC(); } catch (e) { return null; }
+          // Limitador suave: permite más volumen sin saturar y mantiene los efectos audibles
+          master = actx.createDynamicsCompressor();
+          master.threshold.value = -14; master.knee.value = 12; master.ratio.value = 4;
+          master.attack.value = 0.005; master.release.value = 0.25;
+          master.connect(actx.destination);
+          actx.addEventListener('statechange', function () { if (onAudioState) onAudioState(); });
+        }
+        if (actx.state === 'suspended') { try { var r = actx.resume(); if (r && r.catch) r.catch(function () {}); } catch (e) {} }
+        return actx;
+      }
+      function hz(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+
+      // ---- Efectos: cortos, suaves, sin superponerse ----
+      function createSfx() {
+        var out = null, bus = null, lastMs = 0;
+        function tone(c, dest, t, o) {
+          var osc = c.createOscillator(), g = c.createGain();
+          osc.type = o.type || 'sine';
+          osc.frequency.setValueAtTime(o.f, t);
+          if (o.f2) osc.frequency.exponentialRampToValueAtTime(o.f2, t + o.dur);
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.exponentialRampToValueAtTime(o.v, t + (o.a || 0.008));
+          g.gain.exponentialRampToValueAtTime(0.0001, t + o.dur);
+          osc.connect(g); g.connect(dest);
+          osc.start(t); osc.stop(t + o.dur + 0.05);
+        }
+        var SOUNDS = {
+          add:     function (c, d, t) { tone(c, d, t, { f: 523.25, dur: 0.22, type: 'triangle', v: 0.26 }); tone(c, d, t + 0.08, { f: 783.99, dur: 0.32, type: 'triangle', v: 0.22 }); },
+          remove:  function (c, d, t) { tone(c, d, t, { f: 392, f2: 196, dur: 0.22, v: 0.28 }); },
+          inc:     function (c, d, t) { tone(c, d, t, { f: 659.25, dur: 0.12, type: 'triangle', v: 0.2 }); },
+          dec:     function (c, d, t) { tone(c, d, t, { f: 493.88, f2: 440, dur: 0.12, type: 'triangle', v: 0.2 }); },
+          sauce:   function (c, d, t) { tone(c, d, t, { f: 300, f2: 620, dur: 0.12, v: 0.26 }); tone(c, d, t + 0.05, { f: 520, f2: 880, dur: 0.1, v: 0.14 }); },
+          confirm: function (c, d, t) { [523.25, 659.25, 783.99].forEach(function (f, i) { tone(c, d, t + i * 0.1, { f: f, dur: 0.5, type: 'triangle', v: 0.18 }); }); tone(c, d, t + 0.2, { f: 1046.5, dur: 0.6, v: 0.08 }); },
+          open:    function (c, d, t) { tone(c, d, t, { f: 392, f2: 523.25, dur: 0.18, v: 0.2 }); },
+          close:   function (c, d, t) { tone(c, d, t, { f: 523.25, f2: 392, dur: 0.18, v: 0.2 }); }
+        };
+        var self = {
+          on: load('ae_sfx') !== '0',
+          set: function (v) { self.on = !!v; store('ae_sfx', v ? '1' : '0'); },
+          play: function (name) {
+            if (!self.on || document.hidden || !SOUNDS[name]) return;
+            var ms = Date.now();
+            if (ms - lastMs < 70) return;          // evita ráfagas por clics muy rápidos
+            var c = getCtx(); if (!c) return;
+            lastMs = ms;
+            if (MUSIC && MUSIC.duck) MUSIC.duck();   // baja la música un instante para que el efecto se distinga
+            if (!out) { out = c.createGain(); out.gain.value = 0.9; out.connect(master); }
+            var now = c.currentTime;
+            if (bus) {                              // corta con suavidad el sonido anterior: nunca se apilan
+              var old = bus;
+              old.gain.cancelScheduledValues(now);
+              old.gain.setValueAtTime(old.gain.value, now);
+              old.gain.linearRampToValueAtTime(0, now + 0.04);
+              setTimeout(function () { try { old.disconnect(); } catch (e) {} }, 150);
+            }
+            bus = c.createGain(); bus.connect(out);
+            SOUNDS[name](c, bus, now + 0.005);
+          }
+        };
+        return self;
+      }
+
+      // ---- Música generada: Cmaj7 · Am7 · Fmaj7 · G6, pad cálido + bajo suave + notas pentatónicas con eco ----
+      function createSynthMusic() {
+        var CHORD_LEN = 7, PENTA = [67, 69, 72, 74, 76, 79, 81, 84];
+        var CHORDS = [
+          { pad: [52, 55, 59, 60], bass: 48 },
+          { pad: [52, 55, 57, 60], bass: 45 },
+          { pad: [53, 57, 60, 64], bass: 41 },
+          { pad: [55, 59, 62, 64], bass: 43 }
+        ];
+        var out = null, dk = null, dry = null, conv = null, dl = null, sess = null, timer = null, running = false, idx = 0, nextT = 0;
+
+        function impulse(c, secs, decay) {
+          var len = Math.floor(c.sampleRate * secs), buf = c.createBuffer(2, len, c.sampleRate);
+          for (var ch = 0; ch < 2; ch++) {
+            var d = buf.getChannelData(ch);
+            for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
+          }
+          return buf;
+        }
+        function build(c) {
+          out = c.createGain(); out.gain.value = 0; dk = c.createGain(); out.connect(dk); dk.connect(master);
+          dry = c.createGain(); dry.connect(out);
+          conv = c.createConvolver(); conv.buffer = impulse(c, 2.2, 2.4);
+          var rv = c.createGain(); rv.gain.value = 0.6; conv.connect(rv); rv.connect(out);
+          dl = c.createDelay(1.5); dl.delayTime.value = 0.46;
+          var fb = c.createGain(); fb.gain.value = 0.3;
+          var lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1600;
+          dl.connect(lp); lp.connect(fb); fb.connect(dl); lp.connect(dry); lp.connect(conv);
+        }
+        function newSession(c) {
+          var old = sess;
+          if (old) {
+            var t = c.currentTime;
+            [old.d, old.r, old.l].forEach(function (g) { g.gain.cancelScheduledValues(t); g.gain.setTargetAtTime(0, t, 0.08); });
+            setTimeout(function () { [old.d, old.r, old.l].forEach(function (g) { try { g.disconnect(); } catch (e) {} }); }, 1500);
+          }
+          sess = { d: c.createGain(), r: c.createGain(), l: c.createGain() };
+          sess.d.connect(dry); sess.r.connect(conv); sess.l.connect(dl);
+        }
+        function padVoice(c, m, t, len) {
+          [-6, 6].forEach(function (det) {
+            var o = c.createOscillator(), f = c.createBiquadFilter(), g = c.createGain();
+            o.type = 'triangle'; o.frequency.value = hz(m); o.detune.value = det;
+            f.type = 'lowpass'; f.frequency.value = 800;
+            g.gain.setValueAtTime(0.0001, t);
+            g.gain.linearRampToValueAtTime(0.022, t + 2.2);
+            g.gain.setValueAtTime(0.022, t + len);
+            g.gain.linearRampToValueAtTime(0.0001, t + len + 2.4);
+            o.connect(f); f.connect(g); g.connect(sess.d); g.connect(sess.r);
+            o.start(t); o.stop(t + len + 2.6);
+          });
+        }
+        function bassVoice(c, m, t, len) {
+          var o = c.createOscillator(), g = c.createGain();
+          o.type = 'sine'; o.frequency.value = hz(m);
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.linearRampToValueAtTime(0.09, t + 0.5);
+          g.gain.linearRampToValueAtTime(0.0001, t + len);
+          o.connect(g); g.connect(sess.d);
+          o.start(t); o.stop(t + len + 0.1);
+        }
+        function pluckVoice(c, m, t, vel) {
+          var o = c.createOscillator(), o2 = c.createOscillator(), f = c.createBiquadFilter(), g = c.createGain(), g2 = c.createGain(), ds = c.createGain();
+          o.type = 'triangle'; o.frequency.value = hz(m);
+          o2.type = 'sine'; o2.frequency.value = hz(m) * 2; g2.gain.value = 0.25;
+          f.type = 'lowpass'; f.frequency.value = 2400;
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.exponentialRampToValueAtTime(0.05 * vel, t + 0.012);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + 1.8);
+          ds.gain.value = 0.5;
+          o.connect(f); o2.connect(g2); g2.connect(f); f.connect(g);
+          g.connect(sess.d); g.connect(sess.r); g.connect(ds); ds.connect(sess.l);
+          o.start(t); o2.start(t); o.stop(t + 1.9); o2.stop(t + 1.9);
+        }
+        function scheduleChord(c, t, n) {
+          var ch = CHORDS[n % CHORDS.length];
+          ch.pad.forEach(function (m) { padVoice(c, m, t, CHORD_LEN); });
+          bassVoice(c, ch.bass, t, 3.6); bassVoice(c, ch.bass, t + 3.5, 3.6);
+          [0.8, 2.3, 3.1, 4.6, 5.5].forEach(function (o) {
+            if (Math.random() < 0.7) pluckVoice(c, PENTA[Math.floor(Math.random() * PENTA.length)], t + o + Math.random() * 0.15, 0.6 + Math.random() * 0.4);
+          });
+        }
+        function tick() {
+          var c = actx; if (!c || !running) return;
+          while (nextT < c.currentTime + 3) { scheduleChord(c, nextT, idx++); nextT += CHORD_LEN; }
+        }
+        function ramp(to, secs) {
+          var t = actx.currentTime;
+          out.gain.cancelScheduledValues(t);
+          out.gain.setValueAtTime(out.gain.value, t);
+          out.gain.linearRampToValueAtTime(to, t + secs);
+        }
+        return {
+          start: function (muted) {
+            var c = getCtx(); if (!c) return false;
+            if (!out) build(c);
+            if (!running) { running = true; newSession(c); nextT = c.currentTime + 0.15; tick(); timer = setInterval(tick, 700); }
+            ramp(muted ? 0 : MUSIC_VOL, 2);
+            return true;
+          },
+          stop: function () { running = false; clearInterval(timer); if (actx && out) ramp(0, 0.6); },
+          setMuted: function (m) { if (actx && out && running) ramp(m ? 0 : MUSIC_VOL, 0.3); },
+          audible: function () { return !!(running && actx && actx.state === 'running'); },
+          duck: function () {
+            if (!actx || !dk || !running) return;
+            var t = actx.currentTime;
+            dk.gain.cancelScheduledValues(t);
+            dk.gain.setValueAtTime(dk.gain.value, t);
+            dk.gain.linearRampToValueAtTime(0.5, t + 0.04);
+            dk.gain.linearRampToValueAtTime(1, t + 0.8);
+          },
+          suspend: function () { if (actx) actx.suspend(); },
+          resume: function () { if (actx) actx.resume(); }
+        };
+      }
+
+      // ---- Alternativa: archivo de audio propio (solo si AUDIO_SRC tiene una ruta real) ----
+      function createFileMusic(src) {
+        var a = $('bg-music'), ft = null;
+        a.src = src; a.loop = true; a.volume = 0;
+        a.addEventListener('play', function () { if (onAudioState) onAudioState(); });
+        a.addEventListener('pause', function () { if (onAudioState) onAudioState(); });
+        function fade(to, ms, cb) {
+          clearInterval(ft);
+          var from = a.volume, t0 = Date.now();
+          ft = setInterval(function () {
+            var k = Math.min(1, (Date.now() - t0) / ms);
+            a.volume = Math.max(0, Math.min(1, from + (to - from) * k));
+            if (k >= 1) { clearInterval(ft); if (cb) cb(); }
+          }, 40);
+        }
+        function play() { var p = a.play(); if (p && p.catch) p.catch(function () {}); }
+        return {
+          start: function (muted) { a.muted = !!muted; play(); fade(FILE_VOL, 1800); return true; },
+          stop: function () { fade(0, 500, function () { a.pause(); }); },
+          setMuted: function (m) { a.muted = !!m; },
+          audible: function () { return !a.paused; },
+          suspend: function () { a.pause(); },
+          resume: play
+        };
+      }
+
+      // ---- Controles y arranque automático ----
+      (function () {
+        var musicEl = $('music'), mBtn = $('music-play'), sBtn = $('sfx-toggle');
+        SFX = createSfx();
+        var driver = AUDIO_SRC ? createFileMusic(AUDIO_SRC) : (AC ? createSynthMusic() : null);
+        MUSIC = driver;
+        if (!musicEl) return;
+        if (!driver) { musicEl.hidden = true; return; }   // navegador sin audio: no se muestra el control
+
+        // Intención de la persona: la música está activada, salvo que la apague con el botón
+        var want = load('ae_music_off') !== '1';
+        var armed = false, hiddenPause = false;
+        var EVTS = ['pointerup', 'click', 'touchend', 'keydown'];
+
+        function ui(optimistic) {
+          var on = want && (optimistic || driver.audible());
+          var pending = want && !on;                       // quiere sonar pero el navegador aún no lo permite
+          musicEl.classList.toggle('is-playing', on);
+          musicEl.classList.toggle('is-muted', !on);
+          musicEl.classList.toggle('is-pending', pending);
+          musicEl.classList.toggle('is-sfx-off', !SFX.on);
+          mBtn.setAttribute('aria-pressed', String(on));
+          mBtn.setAttribute('aria-label', on ? 'Silenciar música' : 'Activar música');
+          mBtn.title = on ? 'Música activada · toca para silenciar' : 'Música apagada · toca para activar';
+          sBtn.setAttribute('aria-pressed', String(SFX.on));
+          sBtn.setAttribute('aria-label', SFX.on ? 'Silenciar efectos de sonido' : 'Activar efectos de sonido');
+        }
+        function refresh() {
+          if (document.hidden) return;
+          ui();
+          if (want && !driver.audible()) arm(); else disarm();
+        }
+        onAudioState = refresh;
+
+        // Alternativa al autoplay bloqueado: la primera interacción real de la persona inicia la música.
+        function onGesture(e) {
+          if (musicEl.contains(e.target)) return;          // el botón de música gestiona su propio clic
+          if (!want || driver.audible()) { disarm(); return; }
+          driver.start(false);
+          setTimeout(refresh, 300);
+        }
+        function arm() { if (armed) return; armed = true; EVTS.forEach(function (n) { document.addEventListener(n, onGesture, true); }); }
+        function disarm() { if (!armed) return; armed = false; EVTS.forEach(function (n) { document.removeEventListener(n, onGesture, true); }); }
+
+        mBtn.addEventListener('click', function () {
+          if (want && driver.audible()) { want = false; store('ae_music_off', '1'); driver.stop(); disarm(); ui(); }
+          else { want = true; store('ae_music_off', '0'); driver.start(false); ui(true); setTimeout(refresh, 300); setTimeout(refresh, 1500); }
+        });
+        sBtn.addEventListener('click', function () {
+          SFX.set(!SFX.on); ui();
+          if (SFX.on) SFX.play('inc');
+        });
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) { if (want && driver.audible()) { hiddenPause = true; driver.suspend(); } }
+          else { if (hiddenPause) { hiddenPause = false; driver.resume(); } setTimeout(refresh, 300); }
+        });
+
+        window.addEventListener('pageshow', function (e) {
+          if (e.persisted && want && !driver.audible()) { driver.start(false); setTimeout(refresh, 400); }
+        });
+
+        // Intento de arranque automático al cargar
+        if (want) driver.start(false);
+        ui();
+        setTimeout(refresh, 400);
+        setTimeout(refresh, 1500);
+      })();
+
+
+      // 3. Reproducción automática segura del video de Vimeo en PC y Celulares
+      function bindVimeoPlayer() {
+        var iframe = document.getElementById('hero-vimeo-iframe');
+        if (!iframe || !window.Vimeo || !window.Vimeo.Player) return;
+
+        try {
+          var player = new window.Vimeo.Player(iframe);
+          player.ready().then(function () {
+            player.setMuted(true).catch(function () {});
+            player.setVolume(0).catch(function () {});
+            player.setLoop(true).catch(function () {});
+            player.play().catch(function () {
+              // Desbloqueo al primer toque en móviles con restricción estricta de autoplay
+              var unlock = function () {
+                player.setMuted(true);
+                player.play().catch(function () {});
+                document.removeEventListener('touchstart', unlock);
+                document.removeEventListener('click', unlock);
+              };
+              document.addEventListener('touchstart', unlock, { once: true, passive: true });
+              document.addEventListener('click', unlock, { once: true });
+            });
+          });
+        } catch (e) {}
+      }
+
+      window.addEventListener('load', bindVimeoPlayer);
+    })();
+  </script>
+</body>
+</html>
