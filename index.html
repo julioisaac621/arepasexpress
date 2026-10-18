@@ -1170,8 +1170,8 @@
     .cta .btn-menu{white-space:nowrap}
     .inst{display:grid;gap:2rem;align-items:center;margin-top:clamp(3rem,8vw,5rem)}
     .inst>*{min-width:0}
-    .inst__logo{background:#fff;border-radius:20px;padding:1.1rem;width:clamp(130px,30vw,190px);box-shadow:0 18px 40px rgba(0,0,0,.45)}
-    .inst__logo img{display:block;width:100%;height:auto}
+    .inst__logo{background:#fff;border-radius:50%;padding:1.1rem;width:clamp(130px,30vw,190px);aspect-ratio:1/1;box-sizing:border-box;display:grid;place-items:center;box-shadow:0 18px 40px rgba(0,0,0,.45)}
+    .inst__logo img{display:block;width:100%;height:100%;object-fit:contain}
     .inst__meta{display:flex;flex-wrap:wrap;gap:.35rem 2rem;color:var(--muted);margin-bottom:1.6rem;font-size:1rem}
     .inst__meta strong{color:var(--yellow-bright);font-weight:800}
     .inst__h{font-family:var(--font-script);font-size:clamp(1.6rem,4vw,2rem);line-height:1;color:var(--yellow-bright);margin-bottom:.7rem}
@@ -1454,6 +1454,26 @@
     .arrival-replay:hover { background: rgba(245, 184, 0, 0.18); }
     .arrival-replay:active { transform: scale(0.94); }
     .arrival-replay:focus-visible { outline: 2px solid var(--yellow-bright); outline-offset: 3px; }
+
+    /* Jerarquía: 1) ilustración protagonista · 2) información + «Cómo llegar» · 3) mapa compacto */
+    .stand__layout { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
+    @media (min-width: 920px) {
+      .stand__layout { grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); gap: 1.8rem; }
+    }
+    .stand__main, .stand__side { min-width: 0; }
+    .stand__side { display: flex; flex-direction: column; gap: 1.1rem; }
+    .stand__side .stand__go { align-self: flex-start; }
+    .stand__side .stand__map { aspect-ratio: 16 / 9; }
+
+    /* Cuenta regresiva discreta */
+    .cd { margin-top: 0.55rem; }
+    .cd__lbl { display: block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .cd__grid { display: inline-flex; gap: 0.4rem; }
+    .cd__c { min-width: 52px; padding: 0.35rem 0.5rem 0.3rem; border-radius: 10px; background: rgba(12, 7, 3, 0.85); border: 1px solid rgba(245, 184, 0, 0.35); text-align: center; line-height: 1; }
+    .cd__c b { display: block; font: 800 1.2rem var(--font-sans); color: var(--yellow-bright); font-variant-numeric: tabular-nums; }
+    .cd__c i { display: block; font-style: normal; font-size: 0.6rem; font-weight: 700; color: var(--muted); margin-top: 0.22rem; letter-spacing: 0.04em; }
+    .cd__done { margin: 0; display: inline-block; padding: 0.4rem 0.85rem; border-radius: 999px; background: rgba(245, 184, 0, 0.12); border: 1px solid rgba(245, 184, 0, 0.55); color: var(--yellow-bright); font-weight: 800; font-size: 0.9rem; }
+    .cd__done[hidden] { display: none; }
     .stand-glow {
       opacity: 0.25;
       transition: opacity 0.45s ease;
@@ -1820,44 +1840,12 @@
        ======================================================================== -->
   <section class="sec sec--stand" id="encuentranos" aria-labelledby="loc-t">
     <div class="sec__in stand">
+      <div class="stand__layout">
 
-      <div class="stand__top">
-        <div class="stand__info">
-          <span class="eyebrow reveal">Ubicación del evento</span>
-          <h2 class="stand__title reveal" id="loc-t" style="--d:.06s">
-            <span>Arepas Express</span> — IE San Mateo, Sede Principal
-          </h2>
-          <p class="stand__date reveal" style="--d:.12s">Fecha: 23 de octubre.</p>
-          <p class="stand__ref reveal" style="--d:.16s">Barrio San Mateo, Calle 24 Mz. 2 Lote 4 · Magangué, Bolívar</p>
-        </div>
-
-        <a class="btn-ghost stand__go reveal" style="--d:.2s" href="https://maps.app.goo.gl/uKx6ehqAqxNtqgcEA" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m3 11 18-8-8 18-2-8-8-2Z"/>
-          </svg>
-          <span>Cómo llegar</span>
-        </a>
-      </div>
-
-      <div class="stand__grid">
-        <!-- 1. Mapa interactivo real de Google Maps -->
-        <div class="stand__panel reveal" style="--d:.18s">
-          <h3 class="stand__ptitle">Mapa interactivo</h3>
-          <div class="stand__map">
-            <iframe
-              title="Mapa interactivo de IE San Mateo, Sede Principal en Magangué"
-              loading="lazy"
-              allowfullscreen
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=9.2599667,-74.7738632&z=17&hl=es&output=embed">
-            </iframe>
-          </div>
-          <p class="stand__cap"><span>Arrastra para mover la vista y usa +/− para acercar o alejar.</span></p>
-        </div>
-
-        <!-- 2. Animación ilustrada de llegada en moto al stand de Arepas Express -->
-        <div class="stand__panel reveal" style="--d:.24s">
-          <h3 class="stand__ptitle">Recorrido ilustrado</h3>
+        <!-- 1. Protagonista: animación ilustrada de llegada al stand -->
+        <div class="stand__main">
+          <div class="stand__panel reveal" style="--d:.24s">
+          <h3 class="stand__ptitle">Así es la llegada al stand</h3>
           <div class="stand__anim-box" id="arrival-stage">
             <svg class="arrival-svg" viewBox="0 0 560 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animación ilustrativa de llegada en moto al stand de Arepas Express en la IE San Mateo, Sede Principal">
               <defs>
@@ -2036,8 +2024,51 @@
           </div>
           <p class="stand__cap"><span>Ilustración decorativa de un barrio; no es una ruta real. Usa «Cómo llegar» para la ruta en Google Maps.</span></p>
         </div>
-      </div>
+        </div>
 
+        <aside class="stand__side">
+          <!-- 2. Información de ubicación + Cómo llegar -->
+          <div class="stand__info">
+          <span class="eyebrow reveal">Ubicación del evento</span>
+          <h2 class="stand__title reveal" id="loc-t" style="--d:.06s">
+            <span>Arepas Express</span> — IE San Mateo, Sede Principal
+          </h2>
+          <p class="stand__date reveal" style="--d:.12s">Fecha: 23 de octubre.</p>
+          <div class="cd reveal" style="--d:.14s" id="cd" role="timer" aria-label="Cuenta regresiva para el evento">
+            <span class="cd__lbl" id="cd-lbl">Faltan para el evento · 1:00 p. m.</span>
+            <div class="cd__grid" id="cd-grid">
+              <div class="cd__c"><b id="cd-d">--</b><i>días</i></div>
+              <div class="cd__c"><b id="cd-h">--</b><i>horas</i></div>
+              <div class="cd__c"><b id="cd-m">--</b><i>min</i></div>
+              <div class="cd__c"><b id="cd-s">--</b><i>seg</i></div>
+            </div>
+            <p class="cd__done" id="cd-done" hidden>¡Llegó el día de Arepas Express!</p>
+          </div>
+          <p class="stand__ref reveal" style="--d:.16s">Barrio San Mateo, Calle 24 Mz. 2 Lote 4 · Magangué, Bolívar</p>
+        </div>
+          <a class="btn-ghost stand__go reveal" style="--d:.2s" href="https://maps.app.goo.gl/uKx6ehqAqxNtqgcEA" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m3 11 18-8-8 18-2-8-8-2Z"/>
+          </svg>
+          <span>Cómo llegar</span>
+        </a>
+
+          <!-- 3. Mapa interactivo (complemento compacto) -->
+        <div class="stand__panel reveal" style="--d:.18s">
+          <h3 class="stand__ptitle">Ubicación real en Google Maps</h3>
+          <div class="stand__map">
+            <iframe
+              title="Mapa interactivo de IE San Mateo, Sede Principal en Magangué"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=9.2599667,-74.7738632&z=17&hl=es&output=embed">
+            </iframe>
+          </div>
+          <p class="stand__cap"><span>Arrastra para mover la vista y usa +/− para acercar o alejar.</span></p>
+        </div>
+        </aside>
+      </div>
     </div>
   </section>
 
@@ -2454,7 +2485,18 @@
         function ok(p) {
           gpsLoad(false);
           co.geo = { lat: +p.coords.latitude.toFixed(6), lng: +p.coords.longitude.toFixed(6) };
-          gpsMsg('Ubicación obtenida (precisión aprox. ±' + Math.round(p.coords.accuracy) + ' m). Completa tu dirección y barrio.', true);
+          var base = 'Ubicación obtenida (precisión aprox. ±' + Math.round(p.coords.accuracy) + ' m). Completa tu dirección y barrio.';
+          gpsMsg(base, true);
+          // Dirección legible (opcional): si el servicio no responde, se conservan solo las coordenadas
+          var mark = co.geo, ctl = window.AbortController ? new AbortController() : null, tmo = setTimeout(function () { if (ctl) ctl.abort(); }, 6000);
+          fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=18&accept-language=es&lat=' + mark.lat + '&lon=' + mark.lng,
+                { headers: { 'Accept': 'application/json' }, signal: ctl ? ctl.signal : undefined, referrerPolicy: 'no-referrer' })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (j) {
+              clearTimeout(tmo);
+              if (co.geo === mark && j && j.display_name) gpsMsg(base + ' Dirección aproximada: ' + j.display_name + '.', true);
+            })
+            .catch(function () { clearTimeout(tmo); });
           var m = $('geo-map'); m.src = 'https://www.google.com/maps?q=' + co.geo.lat + ',' + co.geo.lng + '&z=17&hl=es&output=embed'; m.hidden = false;
           $('gps-rm').hidden = false; $('gps-t').textContent = 'Actualizar mi ubicación'; updateWa();
         }
@@ -2744,8 +2786,8 @@
 
       // 2b. SONIDO — todo con Web Audio (sin bibliotecas ni archivos obligatorios, carga cero).
       var AUDIO_SRC = '';
-      var MUSIC_VOL = 1.06;    // volumen de la música generada (presencia clara; un limitador evita saturar)
-      var FILE_VOL = 0.47;    // volumen si usas un archivo propio
+      var MUSIC_VOL = 1.8;    // volumen de la música generada (presencia clara; un limitador evita saturar)
+      var FILE_VOL = 0.8;    // volumen si usas un archivo propio
       var AC = window.AudioContext || window.webkitAudioContext;
       var actx = null, master = null, onAudioState = null, MUSIC = null;
       function getCtx() {
@@ -2754,7 +2796,7 @@
           try { actx = new AC(); } catch (e) { return null; }
           // Limitador suave: permite más volumen sin saturar y mantiene los efectos audibles
           master = actx.createDynamicsCompressor();
-          master.threshold.value = -14; master.knee.value = 12; master.ratio.value = 4;
+          master.threshold.value = -10; master.knee.value = 12; master.ratio.value = 3;
           master.attack.value = 0.005; master.release.value = 0.25;
           master.connect(actx.destination);
           actx.addEventListener('statechange', function () { if (onAudioState) onAudioState(); });
@@ -2798,7 +2840,7 @@
             var c = getCtx(); if (!c) return;
             lastMs = ms;
             if (MUSIC && MUSIC.duck) MUSIC.duck();   // baja la música un instante para que el efecto se distinga
-            if (!out) { out = c.createGain(); out.gain.value = 0.9; out.connect(master); }
+            if (!out) { out = c.createGain(); out.gain.value = 1.53; out.connect(master); }
             var now = c.currentTime;
             if (bus) {                              // corta con suavidad el sonido anterior: nunca se apilan
               var old = bus;
@@ -2968,7 +3010,7 @@
         // Intención de la persona: la música está activada, salvo que la apague con el botón
         var want = load('ae_music_off') !== '1';
         var armed = false, hiddenPause = false;
-        var EVTS = ['pointerup', 'click', 'touchend', 'keydown'];
+        var EVTS = ['pointerdown', 'mousedown', 'pointerup', 'click', 'touchend', 'keydown'];
 
         function ui(optimistic) {
           var on = want && (optimistic || driver.audible());
@@ -3024,6 +3066,34 @@
         setTimeout(refresh, 1500);
       })();
 
+
+      // Cuenta regresiva: 23 de octubre de 2026, 1:00 p. m. hora de Colombia (America/Bogota = UTC-5 fijo, sin horario de verano)
+      (function () {
+        var TARGET = new Date('2026-10-23T13:00:00-05:00').getTime();
+        var el = { d: document.getElementById('cd-d'), h: document.getElementById('cd-h'), m: document.getElementById('cd-m'), s: document.getElementById('cd-s') };
+        var grid = document.getElementById('cd-grid'), lbl = document.getElementById('cd-lbl'), done = document.getElementById('cd-done');
+        if (!el.d || isNaN(TARGET)) return;
+        var timer = null, last = {};
+        function put(k, v) { if (last[k] !== v) { last[k] = v; el[k].textContent = v; } }
+        function pad(n) { return n < 10 ? '0' + n : String(n); }
+        function tick() {
+          var left = TARGET - Date.now();
+          if (left <= 0) {
+            clearInterval(timer); timer = null;       // se detiene y no se reinicia
+            grid.hidden = true; lbl.hidden = true; done.hidden = false;
+            return;
+          }
+          var t = Math.floor(left / 1000);
+          put('d', String(Math.floor(t / 86400)));
+          put('h', pad(Math.floor(t % 86400 / 3600)));
+          put('m', pad(Math.floor(t % 3600 / 60)));
+          put('s', pad(t % 60));
+        }
+        tick();
+        if (left_ok()) timer = setInterval(tick, 1000);
+        function left_ok() { return TARGET - Date.now() > 0; }
+        document.addEventListener('visibilitychange', function () { if (!document.hidden) tick(); });
+      })();
 
       // 3. Reproducción automática segura del video de Vimeo en PC y Celulares
       function bindVimeoPlayer() {
